@@ -1,0 +1,466 @@
+\documentclass[10pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
+\title{SGBD Floues}
+\author{Jean-Mathieu CHANTREIN}
+\date{}
+\begin{document}
+
+\maketitle
+
+\chapter{Prédicats floues}
+
+\paragraph{Rappel :\\}
+En logique classique, un \textbf{prédicat} est un terme (une expression) évaluer à vrai ou faux.
+
+\paragraph{Buts :\\}
+\begin{itemize}
+\item Comparer une variable à une valeur constante(ex: $prixCher$)
+\item Comparer $n$ variables (ex: $prixDeVente \approx prixVendu$)
+\end{itemize}
+
+\paragraph{Moyen :\\}
+Définir chaque prédicat flou par un sous ensemble flou[Zadeh65].
+
+
+Un \textbf{sous ensemble flou} $A$ de $E$ est défini par une fonction d'appartenance $f_A$ sui associe à chaque element $x$ de $E$, le degré d'appartenance $f_A(X)$ avec lequel il appartient à A(entre 0 et 1):$$f_A:E\rightarrow[O;1]$$
+
+DESSIN
+
+\paragraph{Définitions :\\}
+
+Le \textbf{support} du sous ensemble $A$ de $E$ est:$$support(A)=\{x \in E | f_A(x)<>0 \}$$
+
+La \textbf{hauteur} du sous ensemble $A$ de $E$ est:$$hauteur(A)=sup_{x \in E} f_A(x)$$
+
+Le \textbf{noyau} du sous ensemble $A$ de $E$ est:$$noyau(A)=\{x \in E | f_A(x)=1 \}$$
+
+\chapter{Relations floues}
+Une \textbf{requete floue(FQUERY)} est une requete exprimée en SQL, dont la partie condition est étendue pour traiter les prédicats flous définis:\\\\
+select $A_1$...$A_n$\\
+from table\\
+where conditions\\
+
+Le \textbf{résultat d'une requête floue} est une \textbf{relation flou} BD, c'est une relation résultat pour lequel chaque tuple a un degré d'appartenance dans $[0;1]$, décrivant le succès de la requête.
+
+\chapter{Opérateurs}
+La \textbf{sélection floue} consiste à appliquer un prédicat flou construit par l’utilisation de l'opérateur unaire (NOT) et/ou des opérateurs binaires (AND/OR) sur les prédicats flous donnés.
+
+\par Il faut définir:
+\begin{itemize}
+\item$f_{!A}(x)$
+\item$f_{A\&B}(x)$
+\item$f_{A\|B}(x)$
+\end{itemize} 
+
+La \textbf{négation} d'un sous ensemble flou (appelé \textbf{complément} en logique flou)$A$ de $E$ est défini par:$$f_{!A}(x)=1-f_A(x)$$
+
+La \textbf{disjonction} (union) de 2 sous ensembles flou $A,B$ de $E$ est défini par:
+$$f_{A\|B}(x)=max(f_A(x),f_B(X))$$
+
+La \textbf{conjonction} (intersection) de 2 sous ensembles flou $A,B$ de $E$ est défini par:
+$$f_{A\&B}(x)=min(f_A(x),f_B(X))$$
+
+\paragraph{Remarque: \\}
+Pour palier à la rigidité de $f_{A\&B}(x)$, on peut utiliser OWA(Ordered Weighted Averaging). Mais cette possibilité ne fait pas partie de la BDD floue:
+$$ F_{A_1\&...\&A_i\&...\&A_n}(x)=w_1f_{A_1}(x)+...+w_if_{A_i}(x)+...+w_nf_{A_n}(x)$$
+avec $\sum_{i=1}^{n} w_i=1$ et $\forall i,f_{A_i}(x)\geq f_{A_{i+1}}(x)$
+
+\begin{itemize}
+\item si $w_1=1$ alors $w_i=0$ et disjonction floue (max)
+\item si $w_n=1$ alors $w_i=0$ et intersection floue (min)
+\item si $w_i=\frac{1}{n}$ alors moyenne arithmétique
+\end{itemize}
+
+\section{Jointure floue}
+select R,S\\
+from R,S\\
+where RC $\approx$ S.D\\
+où $\approx$ est un opérateur de jointure flou fournit par $f \approx (a,b)$ 
+
+
+
+\chapter{Modificateurs}
+\paragraph{Idée: \\}
+Utiliser un opérateur qui permettent de moduler des prédicats.Ex: très,peu...
+\paragraph{Définition: \\}
+Un \textbf{modificateur linguistique} $m$ est une fonction qui associe à tout sous ensemble flou A de E, un sous ensemble flou $m(A)$ de E par l'intermédiaire d'une fonction $t_m$ tel que:
+$\forall x \in E,f_{m(A)}(X)=t_m(f_A(X)) $
+\paragraph{Exemple :\\}
+
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline
+\multicolumn{6}{|c|}{VENTE} \\
+
+\hline 
+Adresse & Age & Prix & $f_{vieux}$ & $f_{tresVieux}$ & $f_{tresCher}$ \\ 
+\hline 
+FOCH & 20 & 1 & 0 & 0 & 1\\ 
+\hline 
+IENA & 100 & 0,8 & 1 & 1 & 0\\ 
+\hline 
+LAFAYETTE & 90 & 0,9 & 0.8 & 0.64 & 0.25\\ 
+\hline 
+BELLE-BEILLE & 20 & 0,5 & 0 & 0 & 0\\ 
+\hline 
+BLEU & 80 & 1 & 0.6 & 0.36 & 1\\ 
+\hline 
+\end{tabular} 
+
+\begin{verbatim}
+Select
+from Vente
+where tresVieux(Age)
+
+Select
+from Vente
+where tresCher(Prix)
+
+\end{verbatim}
+
+\paragraph{Limitation de la méthode: \\}
+La sémantique de "tres" ou "peu" peut-être différente en fonction des mots choisi, or la définition de "très" est générique.
+
+\part{Bases de données et requêtes floues}
+
+\begin{enumerate}
+\item FQUERY (sous ensemble flou) : \\
+	\begin{itemize}
+	\item des données \textbf{précises}
+	\item des systemes relationnels
+	\item permet des requetes floues\\
+	$\longrightarrow$ \textbf{les résultats avec degré (d'appartenance)}
+\end{itemize}
+
+\item FSQL (sous ensemble flou + théorie des possibilités) : \\
+	\begin{itemize}
+	\item des données \textbf{imprécises}
+	\item des systèmes relationnels
+	\item permet des requêtes floues\\
+	$\longrightarrow$ \textbf{les résultats filtrés}
+\end{itemize}
+
+\end{enumerate}
+
+\paragraph{Idées de base:\\}
+\begin{itemize}
+	\item les données imprécises sont stockées dans des tables classiques
+	\item requêtes peuvent utiliser des prédicats flou à définir
+	\item degré
+\end{itemize}
+
+\paragraph{Plan:\\}
+\begin{itemize}
+	\item A.Stockage des données imprécises et des prédicats flous
+	\item B.Le problème
+	\item C.Les requêtes
+\end{itemize}
+
+\chapter{Stockage des données imprécises \\}
+\begin{itemize}
+\item Une colonne contient:
+\begin{itemize}
+\item \textbf{soit une valeur classique}
+\item \textbf{soit une valeur floue numérique}
+\end{itemize}
+\item Le codage d'une valeur floue numérique se fait sous forme d'un trapèze, en fournissant les quatres valeurs remarquables sur l'abscisse
+\begin{itemize}
+\item La table trapèze contient une clef associée à un trapèze sur un ensemble de données
+\item Une référence au trapèze correspondant est stocké dans la table
+\end{itemize}
+\item Le codage d'un prédicat flou se fait suivant la meme technique qu'une valeur floue
+\end{itemize}
+
+\paragraph{\underline{Exemple:} \\\\}
+
+\begin{tabular}{|c|c|c|}
+\hline
+\multicolumn{3}{|c|}{STAGE}\\
+\hline 
+Titre & Indemnité & Durée \\ 
+\hline 
+dev.Web & 500 (a1) & 6 \\ 
+\hline 
+analyse & [500,1000](500,500,1000,1000) (a2) & 6 \\ 
+\hline 
+Prog & fig1(0,500,1000,1500) (a3) & 3 \\ 
+\hline 
+Doc & 500 (a1) & 3 \\ 
+\hline 
+BDD & [500,1000](500,500,1000,1000) (a2) & 6 \\ 
+\hline
+\end{tabular} 
+
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\multicolumn{5}{|c|}{TRAPEZE}\\
+\hline 
+a1 & 500 & 500 & 500 & 500 \\ 
+\hline 
+a2 & 500 & 500 & 1000 & 1000 \\ 
+\hline 
+a3 & 0 & 500 & 1000 & 1500 \\ 
+\hline 
+\end{tabular} 
+
+\chapter{B.Le problème \\}
+
+\begin{enumerate}
+\item FQUERY : \\
+	\begin{itemize}
+	\item prédicat flou: sous ensemble flou $f(x)$
+	\item une donnée \textbf{précise} $a$
+	\item le résultat
+	\begin{itemize}
+		\item pour une donnée: $f(a)$ le degré d’appartenance
+		\item Pour la requête: des combinaisons de ces degrés
+	\end{itemize}		
+\end{itemize}
+
+\item FSQL : \\
+	\begin{itemize}
+	\item prédicat flou: sous ensemble flou $f_A(x)$
+	\item une donnée \textbf{imprécise}: un sous ensemble flou $f_{A'}(y)$
+	\item le résultat
+	\begin{itemize}
+		\item pour une donnée est un nombre tenant compte de $f_A$ et $f_{A'} f(a)$: le degré d'appartenance $\rightarrow$ comparer deux sous ensemble flous(prédicat et donnée) 
+		\item Pour la requête : des combinaisons de ces degrés
+	\end{itemize}		
+\end{itemize}
+\end{enumerate}
+
+\begin{tabular}{|c|c|c|}
+\hline 
+Adresse & Age & Prix \\ 
+\hline 
+JOFFRE & 50 & (0.5;1;$+\infty$;$+\infty$) \\ 
+\hline 
+IENA & 90 & (1.1;1.1;1.2;1.2) \\ 
+\hline 
+EIFFEL & 60 & 1.8 \\ 
+\hline 
+JOFFRE & 95 & (0.8;0.9;1.5;1.6) \\ 
+\hline 
+\end{tabular} 
+
+\chapter{C.Les requêtes}
+\paragraph{Problème\\}
+
+Ayant un ensemble flou $ A $ (décrivant un prédicat: $PrixEleve$), et un ensemble flou $ A' $   (décrivant une donnée: $Prix$), on vaut mesurer la confiance en  $ A' $ est un $ A $ (le prix est un prix élevé: $PrixEleve(Prix)$)
+
+\paragraph{Solution : La théorie des possibilités\\}
+\begin{itemize}
+\item La mesure de possibilité (Optimisme)\\
+$ ps(X est A / Xest A')=sup\{min(f_A(x),f_{A'}(x)) / x \in E\} $
+\item la mesure de nécessité (Pessimisme)\\
+$ nc(X est A / X est A')=inf \{max(1-f_{A'}(x), f_A(x)) / x \in E\} $
+\end{itemize}
+
+\begin{tabular}{|c|c|c|c|c|}
+\hline 
+Adresse & Age & Prix & Ps & Nc \\ 
+\hline 
+JOFFRE & 50 & (0.8;0.9;1.1;1.2) & 0.5 & 0 \\ 
+\hline 
+IENA & 90 & (1.1;1.1;1.7;1.7) & 1 & 0.5  \\ 
+\hline 
+EIFFEL & 60 & 1.8 & 1 & 1  \\ 
+\hline 
+JOFFRE & 95 & (1.3;1.4;1.5;1.6) & 1 & 1  \\ 
+\hline 
+\end{tabular} 
+
+avec $f_{prixEleve}:(1;1.2;1.8;2)$
+
+
+Select col1,...,coln,cdeg(ps|n)
+from T1,...,Tm
+where condition
+
+\begin{itemize}
+\item cdeg(ps|n): rend trié sur degré de ps ou nc
+\item condition:faible(indemnité)...prixEleve(Prix)...faible(Indemnité) $>$ NFEQ 0,1 retorne les résultats avec un degré de nécéssité supérieur a 0,1\\
+faible(indemnité)$>$FEQ 0,1 retourne les résultats avec un degré de possibilité supérieur à 0,1
+\end{itemize}
+
+\section*{TD1 Flou, SGBD}
+\subsection*{Exercice 1}
+1)Relations floues
+\begin{itemize}
+\item $f_{J\&K}(x)=min(f_J(x),f_K(x))$
+\item $f_{J\|K}(x)=max(f_J(x),f_K(x))$
+\end{itemize}
+
+2)Théorie des possibilités
+\begin{itemize}
+\item $Ps(f_J|f_{[18;18;28;28]})=sup\{min(f_J|f_{[18;18;28;28]})\}=1$
+\item $Nc(f_J|f_{[18;18;28;28]})=inf\{max(1-f_{[18;18;28;28]},f_J)\}=0$
+\end{itemize}
+N.B.:Attention à l'ordre prédicat/données\\
+
+3)Modérateurs linguistique\\
+$f_{tres}(x)=x^2 $
+\subsection*{Exercice 2}
+
+1)Définitions de fonction floues
+
+$f_{GrandDom}=[0;150;200;+\infty]$\\
+$f_{Difficile}=[20;25;+\infty;+\infty]$\\
+$f_{Facile}=[0;0;20;25]$\\
+$f_{Moyen}=[260;280;320;340]$\\
+$f_{MoyenneMontagne}=[1300;1500;1500;1700]$\\
+
+2)Requetes et résultats
+
+a)Stations avec un grand domaine skiable\\\\
+select S.Nom\\ 
+from Stations S\\
+where $f_{GrandDom}$(S.Domaine)\\
+
+\begin{tabular}{|c|c|}
+\hline 
+Nom & $f_{GrandDom}$ \\ 
+\hline 
+Courch & 1 \\ 
+\hline 
+DeuxA & 0.8 \\ 
+\hline 
+Samo & 0.4 \\ 
+\hline 
+Serre & 1 \\ 
+\hline 
+\end{tabular} \\\\
+
+b)Stations avec un grand domaine skiable et beaucoup de pistes difficiles\\\\
+select S.Nom\\ 
+from Stations S\\
+where $f_{GrandDom}$(S.Domaine) \& $f_{Difficile}$(S.PisteRN)\\
+
+\begin{tabular}{|c|c|c|c|}
+\hline 
+Nom & $f_{GrandDom}$ & $f_{Difficile}$ & Resultat \\ 
+\hline 
+Courch & 1 & 1 & 1 \\ 
+\hline 
+DeuxA & 0.8 & 1 & 0.8 \\ 
+\hline 
+Samo & 0.4 & 1 & 0.4 \\ 
+\hline 
+Serre & 1 & 1 & 1 \\ 
+\hline 
+\end{tabular}\\\\
+
+c)Stations à environ 1500m avec beaucoup de piste difficiles\\\\
+select S.Nom\\ 
+from Stations S\\
+where $f_{MoyenneMontagne}$(S.Altitude) \& $f_{Difficile}$(S.PisteRN)\\
+
+\begin{tabular}{|c|c|c|c|}
+\hline 
+Nom & $f_{MoyenneMontagne}$ & $f_{Difficile}$ & Resultat \\ 
+\hline 
+Courch & 1 & 1 & 1 \\ 
+\hline 
+Serre & 1 & 1 & 1 \\ 
+\hline 
+\end{tabular}\\\\
+
+d)Stations ou l'on peut trouver un hotel à prix moyen\\\\
+select S.Nom\\ 
+from Stations S natural join Hotels H\\
+where $f_{Moyen}$(H.Prix) \\
+
+\begin{tabular}{|c|c|}
+\hline 
+Nom & $f_{Moyen}$ \\ 
+\hline 
+Samo & 0.5 \\ 
+\hline 
+Courch & 1 \\ 
+\hline 
+Pierre & 1 \\ 
+\hline 
+\end{tabular}\\
+
+N.B: distinct ajoute une borne sup sur la condition\\
+
+e)Stations avec un hôtel à prix moyen ou un grand domaine skiable\\\\
+select S.Nom\\ 
+from Stations S natural join Hotels H\\
+where $f_{Moyen}$(Prix) $\|$ $f_{GrandDom}$\\
+
+
+\begin{tabular}{|c|c|c|c|}
+\hline 
+Nom & $f_{Moyen}$ & $f_{GrandDom}$ & $f_{Moyen \| GrandDom}=max(f_{Moyen},f_{GrandDom})$ \\ 
+\hline 
+Samo & 0.5 & 0.4 & 0.5 \\
+\hline 
+Courch & 1 & 1 & 1 \\ 
+\hline 
+Pierre & 1 & 0 & 1 \\ 
+\hline 
+DeuxA & 0 & 0.8 & 0.8 \\ 
+\hline 
+Serre & 0 & 1 & 1 \\ 
+\hline 
+\end{tabular}\\\\
+
+f)Stations où le prix du forfait est environ la moitié du prix d'une chambre: environ, à définir, permet une tolérance linéaire de 50\\\\
+select S.Nom\\ 
+from Stations S natural join Hotels H\\
+where S.Forfait $\approx$ H.Prix/2 \\
+avec $f_{\approx} = |X-Y| \leq 50 $\\
+
+\begin{tabular}{|c|c|c|c|c|}
+\hline 
+Nom & IdStation & Prix/2 & Forfait & $f_{\approx}$ \\ 
+\hline 
+Samo & 102 & 125 & 150 & $25\rightarrow0.5$ \\ 
+\hline 
+Samo & 102 & 175 & 150 & $25\rightarrow0.5$ \\ 
+\hline 
+Samo & 102 & 120 & 150 & $30\rightarrow0.4$ \\ 
+\hline 
+Samo & 102 & 130 & 150 & $20\rightarrow0.6$ \\ 
+\hline 
+Courch & 100 & 155 & 200 & $45\rightarrow0.1$ \\ 
+\hline 
+Courch & 100 & 225 & 200 & $25\rightarrow0.5$ \\ 
+\hline 
+Pierre & 201 & 135 & 90 & $45\rightarrow0.1$ \\ 
+\hline 
+Pierre & 201 & 150 & 90 & $60\rightarrow 0$ \\ 
+\hline 
+\end{tabular} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
