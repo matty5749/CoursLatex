@@ -258,7 +258,7 @@ $ ps(X est A / Xest A')=sup\{min(f_A(x),f_{A'}(x)) / x \in E\} $
 \item la mesure de nécessité (Pessimisme)\\
 $ nc(X est A / X est A')=inf \{max(1-f_{A'}(x), f_A(x)) / x \in E\} $
 \end{itemize}
-
+N.B.: Le résultat du minimum de deux fonctions floues est une fonction floue.
 \begin{tabular}{|c|c|c|c|c|}
 \hline 
 Adresse & Age & Prix & Ps & Nc \\ 
@@ -415,46 +415,107 @@ from Stations S natural join Hotels H\\
 where S.Forfait $\approx$ H.Prix/2 \\
 avec $f_{\approx} = |X-Y| \leq 50 $\\
 
-\begin{tabular}{|c|c|c|c|c|}
+\begin{tabular}{|c|c|c|c|c|c|}
 \hline 
-Nom & IdStation & Prix/2 & Forfait & $f_{\approx}$ \\ 
+Nom & IdStation & Prix/2 & Forfait & $f_{\approx}$ & DISTINCT\\ 
 \hline 
-Samo & 102 & 125 & 150 & $25\rightarrow0.5$ \\ 
+Samo & 102 & 125 & 150 & $25\rightarrow0.5$ & NON \\ 
 \hline 
-Samo & 102 & 175 & 150 & $25\rightarrow0.5$ \\ 
+Samo & 102 & 165 & 150 & $15\rightarrow0.7$ & OUI \\ 
 \hline 
-Samo & 102 & 120 & 150 & $30\rightarrow0.4$ \\ 
+Samo & 102 & 120 & 150 & $30\rightarrow0.4$ & NON \\ 
 \hline 
-Samo & 102 & 130 & 150 & $20\rightarrow0.6$ \\ 
+Samo & 102 & 130 & 150 & $20\rightarrow0.6$ & NON \\ 
 \hline 
-Courch & 100 & 155 & 200 & $45\rightarrow0.1$ \\ 
+Courch & 100 & 155 & 200 & $45\rightarrow0.1$ & NON \\ 
 \hline 
-Courch & 100 & 225 & 200 & $25\rightarrow0.5$ \\ 
+Courch & 100 & 225 & 200 & $25\rightarrow0.5$ & OUI \\ 
 \hline 
-Pierre & 201 & 135 & 90 & $45\rightarrow0.1$ \\ 
+Pierre & 201 & 135 & 90 & $45\rightarrow0.1$ & OUI \\ 
 \hline 
-Pierre & 201 & 150 & 90 & $60\rightarrow 0$ \\ 
+Pierre & 201 & 150 & 90 & $60\rightarrow 0$ & NON \\ 
 \hline 
 \end{tabular} 
 
+\subsection*{Exercice 3}
+
+N.B.Lors d'un calcul de possibilitée ou necessité, il faut considerer les constantes comme des valeurs floues.
+
+1)Il faut définir la table TRAPEZE qui contiendra les fonctions floues que l'on souhaite modéliser: Mûr, Jeune, Vieux, Elevé, Faible\\
+
+2)\\
+Select C.Nom\\
+from Cadre C\\
+where $f_{moyenSup}(C.Salaire)$\\
 
 
+\part{Le Data Ware House}
+\chapter{A.Le problème}
+Les bases de données actuellement utilisées sont essentiellement des BD de production de type OLTP:On Line Transaction Processing:
+elles se caractérisent par:
+\begin{itemize}
+\item Les mises à jour des données
+\item lecture / ecriture
+\item des échanges utilisateurs/BD faibles
+\item orientation des interfaces vers 1 ou 2D
+\item taille en Giga , Tera octets
+\item données récentes
+\end{itemize}
+
+Les bases de données d'aide à la décision émergent, elles sont de type OLAP: On Line Analysis Processing; elles se caractérisent par  :
+ \begin{itemize}
+ \item analyse des données
+ \item lecture
+ \item echanges utilisateurs/BD forts
+ \item orientation des interfaces 3...n Dimensions
+ \item taille de Tera/Peta octets
+ \item données historiées
+ \end{itemize}
+$\rightarrow$ elles permmettent de contenir et de synthétiser les données de l'entreprise en vue de comprendre l'entreprise.
+
+\chapter{B.Data Ware House}
+La BDD de l'entreprises est concu par domaine d'activité de l'entreprise.\\\\
+L'entrepot de données (Data Ware House) regroupe l'ensemble des données historicisées,consolidée dans une unique BDD,afin de permettre de faire de l'aide à la prise de décision.\\\\
 
 
+A partir de l'entrepot , on peut :
+\begin{itemize}
+\item faire de l'analyse de données(OLAP): extraire des données de synthèse, essentiellement numérique.
+\item faire de la fouille de données(Data Mining) qui extrait des connaissances.
+\end{itemize}
 
+\chapter{C.Une architecture}
 
+\section*{La modélisation multidimensionelle(OLAP)}
+\begin{itemize}
+\item A.Le cube de Données
+\begin{itemize}
+\item Un cube de données est une représentation visuelle en 3D de données: il est composé de 3 axes représentant des attributs Dimi, et d'un indicateur IndX qui est la variable analysée dans le cube
+\item La variable analysée peut etre une agragation
+\end{itemize}
+\item B.L'exploitation multidimensionnelle
+\begin{itemize}
+\item Granularité
+\begin{itemize}
+\item  Chaque dimension peut être granulaire et ainsi plus ou moins développée.
+\end{itemize}
+\item L'exploitation
+\begin{itemize}
+\item Le dépliage (Drilldown) est l'extension d'une dimension vers une dimension à grain plus fin.
+\item Le pliage(Rollup) est la réduction d'une dimension vers une dimension à grain plus gros
+\item La coupe (Slice) est la sélection de tranches du cube selon une dimension
+\end{itemize}
+\end{itemize}
+\end{itemize}
 
-
-
-
-
-
-
-
-
-
-
-
+ACHAT
+\begin{tabular}{|c|c|c|c|c|}
+\hline 
+NumFour & NomProd & Date & Quantité & Prix \\ 
+\hline 
+• & • & • & • & • \\ 
+\hline 
+\end{tabular} 
 
 
 
