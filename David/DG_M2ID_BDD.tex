@@ -50,7 +50,7 @@ breaklines=true, %
 breakautoindent=true, % 
 captionpos=b,%
 } 
-
+\usetikzlibrary{positioning}
 
 \lstset{language=C++} 
 \lstset{commentstyle=\textit} 
@@ -86,46 +86,46 @@ Cours présenté par Stéphane \textsc{Loiseau}
 \part{Data Ware House}
 \section{Entrepot de données}
 \subsection{Le problème}
-	Les bases de données actuellement utilisées sont essentiellement des BD de production de type OLTP (On Line Transaction Processing), elles se caractérisent par:
+	Les bases de données actuellement utilisées sont essentiellement des BD de production de type OLTP \emph{(On Line Transaction Processing)}, elles se caractérisent par:
 	\begin{itemize}
-		\item Les mises à jour de données 
-		\item Lecture/écriture
-		\item des échanges utilisateurs/BD faibles (échanges sur un tuple)
-		\item orientation des interfaces vers 1 ou 2D
-		\item taille en Giga/Tera octects
+		\item les mises à jour de données 
+		\item un accès en lecture/écriture
+		\item des échanges utilisateurs/BD faibles \emph{(échanges sur un tuple)}
+		\item une orientation des interfaces vers 1D ou 2D
+		\item une taille en Giga/Tera octects
 		\item des données récentes
 	\end{itemize}
 	~\\
 
-\emph{\textbf{Remarque:} Si on regarde la taille des bdd, il n'y a pas tant de données que ça (en terme de volume). Surtout par rapport à la technologie actuelle. Raison ? Pas de graphiques, de vidéos, mais aussi parce que l'on travaille que sur des données récentes (ex. La SNCF, n'a aucune raison de gardé qui a acheté des places sur le train qui est parti hier, etc.).}	\\
+\emph{\textbf{Remarque:} Si on regarde la taille des Bases de données, il n'y a pas tant de données que ça (en terme de volume), surtout par rapport à la technologie actuelle. Raison ? Pas de graphiques, de vidéos, mais aussi parce que l'on travaille uniquement sur des données récentes (i.e. La SNCF n'a aucune raison de garder l'information sur qui a acheté des places pour le train qui est parti hier...).}	\\
 		
 		Le modèle OLAP est le modèle dominant d'aujourd'hui. \\
 		
-		Les bases de données d'aide à la décision émergent, elles sont de type OLAP (On Line Analysis Processing) l'idée est d'analyser les données de l'entreprise afin d'en faire quelque chose, par exemple pour une campagne markéting ou encore pour gérer le service finance, etc. 
+		Les bases de données d'aide à la décision émergent, elles sont de type OLAP \emph{(On Line Analysis Processing)}. L'idée est d'analyser les données de l'entreprise afin d'en faire quelque chose, par exemple pour une campagne markéting ou encore pour gérer le service finance...\\ 
 		
 		Elles sont caractérisées par:
 		\begin{itemize}
-			\item L'analyse de données \emph{(ex. analyser les données d'un client pour savoir si je lui accorde un crédit, etc.)}
-			\item La lecture \emph{(Les données sont analysées mais ne sont pas produite, pas besoin d'écriture)}
-			\item des échanges utilisateur/BD forts \emph{(ex. Si je regarde chez un fournisseur quelles sont les sommes de produits achetés l'année dernière, les échanges vont être énormes, beaucoup de données à récupérer dans la base de données)}
-			\item orientation des interfaces vers 3 à n dimensions \emph{(Comme j'ai plein de données à analyser moi même, j'ai besoin d'interfaces complexes, qui permettent d'avoir plusieurs écrans en même temps, de naviguer plus facilement, etc)}
-			\item taille en Tera/Peta octets \emph{(les données sont surtout de type historique, accès des données sur le long terme, recherche sur les 10 dernières années, etc)}
+			\item l'analyse de données \emph{(i.e. analyser les données d'un client pour savoir si on lui accorde ou non un crédit)}
+			\item un accès uniquement en lecture \emph{(les données sont analysées mais ne sont pas produites donc pas besoin d'écriture)}
+			\item des échanges utilisateur/BD forts \emph{(i.e. Si l'on regarde chez un fournisseur quelles sont les sommes de produits achetés l'année dernière, les échanges vont être énormes, beaucoup de données seront à récupérer dans la base de données)}
+			\item une orientation des interfaces vers du 3 à n Dimensions \emph{(i.e. Comme on a plein de données à analyser soi-même, on a besoin d'interfaces complexes, qui permettent d'avoir plusieurs écrans en même temps, de naviguer plus facilement...)}
+			\item une taille en Tera/Peta octets \emph{(les données sont surtout de type historique, accès des données sur le long terme, recherche sur les 10 dernières années, etc)}
 		\end{itemize}
 		~\\
 		
-		Ces BDD permettent de contenir et synthétiser les données de l'entreprise en vue de comprendre l'entreprise.\\
+		Ces BDD permettent de contenir et synthétiser les données de l'entreprise en vue de comprendre son fonctionnement.\\
 		
-		Traditionnellement, les bbd en entreprise étaient sur le modèle OLTP mais s'amène vers le modèle OLAP. Le marché du décisionnelle est un marché en forte croissance, 
+		Traditionnellement, les BDD en entreprise étaient sur le modèle OLTP mais s'amènent petit à petit vers le modèle OLAP. Le marché du décisionnel est un marché en forte croissance, 
 		
 		\subsection{Le Dataware House}
-		La base de données de l'entreprise est conçu par domaine d'activité de l'entreprise (personnel, stock, client, etc.). \\
+		La base de données de l'entreprise est conçu par domaine d'activité de l'entreprise \emph{(personnel, stock, client, etc.)}. \\
 		
 		L'idée de l’Entrepôt de données (DataWare House) est de regrouper l'ensemble des données avec historique afin de faire de l'aide à la prise de décision.\\
 		
-		A partir de l'entrepot, on peut:
+		A partir de l’Entrepôt, on peut:
 		\begin{itemize}
-			\item faire de l'analyse de données (OLAP) pour extraire des données de synthèse essentiellement numérique. \emph{(Par exemple je cherche le chiffre d'affaire qui fait mon fournisseur avec une analyse par mois)}
-			\item faire de la fouille de données (Data Mining qui extrait des connaissances. \emph{(Donner des informations qu'on ne pensait pas forcément intéressante)}
+			\item faire de l'analyse de données (OLAP) pour extraire des données de synthèse essentiellement numériques. \emph{(Par exemple, je cherche le chiffre d'affaire que fait mon fournisseur avec une analyse par mois)}
+			\item faire de la fouille de données (Data Mining, qui extrait des connaissances. \emph{(Donner des informations qu'on ne pensait pas forcément intéressante))}
 		\end{itemize}
 		
 		\subsection{Une architecture}
@@ -139,15 +139,67 @@ Cours présenté par Stéphane \textsc{Loiseau}
 		\subsection{Le Cube de Données}
 		Un cube de données est une représentation visuelle en 3D de données, il est composé de 3 axes représentant des attributs Dimi, et d'un indicateur IndX qui est la variable analysée dans le cube. La variable analysée peut être une agrégation.\\
 		
-		\emph{\textbf{Remarque:} l'entrepot de données est une base de données, comme sont stockés les bases de données ? Ca peut etre un modèle relationnel, la manière dont est stockée la BDD mériterait un cours en soit. Ici, on parlera de la manière d'exploiter sur l'exemple où toutes les bases de données sont stockées dans une seule et grande table.}\\
+		\emph{\textbf{Remarque:} l’Entrepôt de données est une base de données, comment sont stockés les bases de données ? Ça peut être un modèle relationnel, ou autre... la manière dont est stockée la BDD mériterait un cours en soit. Ici, on parlera de la manière d'exploiter la BDD avec comme exemple un entrepôt représenté en une seule et grande table.}\\
 		
-		Soit l'exemple ci-dessous: Achat(NomFour, NomPron, Date, Quantité, Prix)\\
+		Soit l'exemple ci-dessous: Achat(NomFournisseur, NomProduit, Date, Quantité, Prix)\\
 		
-		Je vais avoir le cube de données suivant en choisissant les axes Date, Produits et Fournisseur:\\
+		On va avoir le cube de données suivant en choisissant les axes \emph{Date}, \emph{Produit} et \emph{Fournisseur}:\\
 		
-		CUBE\\
-		
-		Et je peux en sortir des vues telles que:\\
+		\begin{center}
+		\begin{tikzpicture}[every node/.style={minimum size=1cm},on grid]
+			\begin{scope}[every node/.append style={yslant=-0.5},yslant=-0.5]
+  				\node at (0.5,2.5) {15};
+  				\node at (1.5,2.5) {};
+  				\node at (2.5,2.5) {};
+  				\node at (0.5,1.5) {};
+  				\node at (1.5,1.5) {50};
+  				\node at (2.5,1.5) {};
+  				\node at (0.5,0.5) {};
+  				\node at (1.5,0.5) {5};
+  				\node at (2.5,0.5) {10};
+  				\draw (0,0) grid (3,3);
+  				\draw [thick,->] (0, 0) -- (0, 3.5);
+  				\node at (-0.5,2.5) {2012};
+  				\node at (-0.5,1.5) {2011};
+  				\node at (-0.5,0.5) {2010};
+  				
+  				\node[rotate=90] at (-0.5,3.5) {(Date)};
+  				
+  				\node at (0.5,-0.5) {P1};
+  				\node at (1.5,-0.5) {P2};
+  				\node at (2.5,-0.5) {P3};
+  				
+  				\node at (-1,-0.5) {(Produit)};
+			\end{scope}
+			\begin{scope}[every node/.append style={yslant=0.5},yslant=0.5]
+  				\node at (3.5,-0.5) {};
+  				\node at (4.5,-0.5) {};
+  				\node at (3.5,-1.5) {};
+  				\node at (4.5,-1.5) {};
+  				\node at (3.5,-2.5) {};
+  				\node at (4.5,-2.5) {18};
+  				\draw (3,-3) grid (5,0);
+  				\draw [thick,->] (3, -3) -- (-0.5, 0.5);
+  				\node at (3.5,-3.5) {F1};
+  				\node at (4.5,-3.5) {F2};
+  				
+  				\node at (6.5,-3.5) {(Fournisseur)};
+  				
+			\end{scope}
+			\begin{scope}[every node/.append style={yslant=0.5,xslant=-1},yslant=0.5,xslant=-1]
+  				\node at (3.5,2.5) {};
+  				\node at (3.5,1.5) {};
+  				\node at (3.5,0.5) {};
+  				\node at (4.5,2.5) {};
+  				\node at (4.5,1.5) {};
+  				\node at (4.5,0.5) {};
+  				\draw (3,0) grid (5,3);
+  				\draw [thick,->] (0, -3) -- (2.5, -3);
+			\end{scope}
+			
+		\end{tikzpicture}
+		\end{center}
+		Et on peut en sortir des vues telles que:\\
 		
 		Vue \textbf{F2}\\
 		\begin{center}
@@ -195,7 +247,7 @@ Cours présenté par Stéphane \textsc{Loiseau}
 		\end{tikzpicture} 
 		\end{center}
 		
-		Vue \textbf{P2, 2011}\\
+		ou encore Vue \textbf{P2, 2011}\\
 		\begin{center}
 		\begin{tikzpicture}[yscale=1, xscale=1] 
 			% 3x3 grid
@@ -214,7 +266,7 @@ Cours présenté par Stéphane \textsc{Loiseau}
 		\subsection{L'exploitation multidimensionnelle}
 		\paragraph{Granularité}
 			\begin{itemize}
-				\item Chaque dimension peut etre granulaire et ainsi plus ou moins développée.
+				\item Chaque dimension peut être granulaire et ainsi plus ou moins développée.
 			\end{itemize}
 		
 		\paragraph{L'exploitation}
