@@ -1,0 +1,234 @@
+\documentclass[a4paper,11pt]{article}
+
+\usepackage[frenchb]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage[bookmarks=true,colorlinks,linkcolor=blue]{hyperref}
+
+
+\usepackage[babel]{csquotes}
+\MakeAutoQuote{«}{»}
+
+\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+
+\usepackage{url}
+\usepackage{wrapfig}
+\usepackage{tabularx}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{tikz-3dplot}
+
+\usepackage{color}
+\usepackage{verbatim}
+\usepackage{listings}
+\usepackage{fancyhdr}
+\usepackage{subfig}
+
+\definecolor{colKeys}{rgb}{0,0,1} 
+\definecolor{colIdentifier}{rgb}{0,0,0} 
+\definecolor{colComments}{rgb}{0,0.5,1} 
+\definecolor{colString}{rgb}{0.6,0.1,0.1} 
+
+\lstset{%configuration de listings 
+float=hbp,% 
+basicstyle=\ttfamily\small, % 
+identifierstyle=\color{colIdentifier}, % 
+keywordstyle=\color{colKeys}, % 
+stringstyle=\color{colString}, % 
+commentstyle=\color{colComments}, % 
+columns=flexible, % 
+tabsize=2, % 
+frame=L, % 
+frameround=tttt, % 
+extendedchars=true, % 
+showspaces=false, % 
+showstringspaces=false, % 
+numbers=left, % 
+numberstyle=\tiny, % 
+breaklines=true, % 
+breakautoindent=true, % 
+captionpos=b,%
+} 
+
+
+\lstset{language=C++} 
+\lstset{commentstyle=\textit} 
+
+% Matière - Formation Lieu 
+% Cours/TP/TD - Titre
+% Auteur
+% Date
+\title{M2 ID - Bases de données avancées \\ \normalsize (Cours)}
+\author{David \textsc{Guinehut}}
+\date{\today}
+
+\begin{document}
+
+%En-tête
+	\lhead{David \textsc{Guinehut}}
+	\rhead{Bases de données avancées \emph{Cours} - M2ID S1 - 2013}
+	\renewcommand{\headrulewidth}{0.001pt}
+	
+	\pagestyle{fancy}
+	\fancypagestyle{plain}
+	
+	\maketitle
+
+	\tableofcontents
+
+\section*{Prelude}
+Cours présenté par Stéphane \textsc{Loiseau}
+
+\part{Base de données Floues}
+
+
+\part{Data Ware House}
+\section{Entrepot de données}
+\subsection{Le problème}
+	Les bases de données actuellement utilisées sont essentiellement des BD de production de type OLTP (On Line Transaction Processing), elles se caractérisent par:
+	\begin{itemize}
+		\item Les mises à jour de données 
+		\item Lecture/écriture
+		\item des échanges utilisateurs/BD faibles (échanges sur un tuple)
+		\item orientation des interfaces vers 1 ou 2D
+		\item taille en Giga/Tera octects
+		\item des données récentes
+	\end{itemize}
+	~\\
+
+\emph{\textbf{Remarque:} Si on regarde la taille des bdd, il n'y a pas tant de données que ça (en terme de volume). Surtout par rapport à la technologie actuelle. Raison ? Pas de graphiques, de vidéos, mais aussi parce que l'on travaille que sur des données récentes (ex. La SNCF, n'a aucune raison de gardé qui a acheté des places sur le train qui est parti hier, etc.).}	\\
+		
+		Le modèle OLAP est le modèle dominant d'aujourd'hui. \\
+		
+		Les bases de données d'aide à la décision émergent, elles sont de type OLAP (On Line Analysis Processing) l'idée est d'analyser les données de l'entreprise afin d'en faire quelque chose, par exemple pour une campagne markéting ou encore pour gérer le service finance, etc. 
+		
+		Elles sont caractérisées par:
+		\begin{itemize}
+			\item L'analyse de données \emph{(ex. analyser les données d'un client pour savoir si je lui accorde un crédit, etc.)}
+			\item La lecture \emph{(Les données sont analysées mais ne sont pas produite, pas besoin d'écriture)}
+			\item des échanges utilisateur/BD forts \emph{(ex. Si je regarde chez un fournisseur quelles sont les sommes de produits achetés l'année dernière, les échanges vont être énormes, beaucoup de données à récupérer dans la base de données)}
+			\item orientation des interfaces vers 3 à n dimensions \emph{(Comme j'ai plein de données à analyser moi même, j'ai besoin d'interfaces complexes, qui permettent d'avoir plusieurs écrans en même temps, de naviguer plus facilement, etc)}
+			\item taille en Tera/Peta octets \emph{(les données sont surtout de type historique, accès des données sur le long terme, recherche sur les 10 dernières années, etc)}
+		\end{itemize}
+		~\\
+		
+		Ces BDD permettent de contenir et synthétiser les données de l'entreprise en vue de comprendre l'entreprise.\\
+		
+		Traditionnellement, les bbd en entreprise étaient sur le modèle OLTP mais s'amène vers le modèle OLAP. Le marché du décisionnelle est un marché en forte croissance, 
+		
+		\subsection{Le Dataware House}
+		La base de données de l'entreprise est conçu par domaine d'activité de l'entreprise (personnel, stock, client, etc.). \\
+		
+		L'idée de l’Entrepôt de données (DataWare House) est de regrouper l'ensemble des données avec historique afin de faire de l'aide à la prise de décision.\\
+		
+		A partir de l'entrepot, on peut:
+		\begin{itemize}
+			\item faire de l'analyse de données (OLAP) pour extraire des données de synthèse essentiellement numérique. \emph{(Par exemple je cherche le chiffre d'affaire qui fait mon fournisseur avec une analyse par mois)}
+			\item faire de la fouille de données (Data Mining qui extrait des connaissances. \emph{(Donner des informations qu'on ne pensait pas forcément intéressante)}
+		\end{itemize}
+		
+		\subsection{Une architecture}
+		\begin{enumerate}
+			\item Extraction (BD) \emph{(Moniteur, Adaptateur)}
+			\item Fusion (DataWare House) \emph{(Médiateur, Entrepot)}
+			\item Exploitation (OLAP, DataMining) \emph{(Décideur)}
+		\end{enumerate}
+			
+	\section{La modélisation multidimensionnelle (OLAP)}
+		\subsection{Le Cube de Données}
+		Un cube de données est une représentation visuelle en 3D de données, il est composé de 3 axes représentant des attributs Dimi, et d'un indicateur IndX qui est la variable analysée dans le cube. La variable analysée peut être une agrégation.\\
+		
+		\emph{\textbf{Remarque:} l'entrepot de données est une base de données, comme sont stockés les bases de données ? Ca peut etre un modèle relationnel, la manière dont est stockée la BDD mériterait un cours en soit. Ici, on parlera de la manière d'exploiter sur l'exemple où toutes les bases de données sont stockées dans une seule et grande table.}\\
+		
+		Soit l'exemple ci-dessous: Achat(NomFour, NomPron, Date, Quantité, Prix)\\
+		
+		Je vais avoir le cube de données suivant en choisissant les axes Date, Produits et Fournisseur:\\
+		
+		CUBE\\
+		
+		Et je peux en sortir des vues telles que:\\
+		
+		Vue \textbf{F2}\\
+		\begin{center}
+		\begin{tikzpicture}[yscale=1, xscale=1] 
+			% 3x3 grid
+			\draw [color=gray] (0, 0) grid (3, 3);
+			
+			% x-axis label
+			\node at (2.5, -0.5) {P3};
+			\node at (1.5, -0.5) {P2};
+			\node at (0.5, -0.5) {P1};
+			% y-axis label
+			\node at (-0.5, 2.5) {2012};
+			\node at (-0.5, 1.5) {2011};
+			\node at (-0.5, 0.5) {2010};
+			
+			%values
+			\node at (1.5, 2.5) {15};
+			\node at (0.5, 1.5) {20};
+			\node at (1.5, 1.5) {7};
+			\node at (1.5, 0.5) {10};
+			\node at (2.5, 0.5) {18};
+			
+		\end{tikzpicture} 
+		\end{center}
+		
+		Vue \textbf{2012}\\
+		\begin{center}
+		\begin{tikzpicture}[yscale=1, xscale=1] 
+			% 3x3 grid
+			\draw [color=gray] (0, 0) grid (3, 2);
+			
+			% x-axis label
+			\node at (2.5, -0.5) {P3};
+			\node at (1.5, -0.5) {P2};
+			\node at (0.5, -0.5) {P1};
+			% y-axis label
+			\node at (-0.5, 1.5) {F1};
+			\node at (-0.5, 0.5) {F2};
+			
+			%values
+			\node at (0.5, 1.5) {15};
+			\node at (1.5, 0.5) {15};
+			
+		\end{tikzpicture} 
+		\end{center}
+		
+		Vue \textbf{P2, 2011}\\
+		\begin{center}
+		\begin{tikzpicture}[yscale=1, xscale=1] 
+			% 3x3 grid
+			\draw [color=gray] (0, 0) grid (2, 1);
+			
+			% x-axis label
+			\node at (1.5, -0.5) {F2};
+			\node at (0.5, -0.5) {F1};
+			
+			%values
+			\node at (1.5, 0.5) {7};
+			\node at (0.5, 0.5) {50};
+			
+		\end{tikzpicture} 
+		\end{center}
+		\subsection{L'exploitation multidimensionnelle}
+		\paragraph{Granularité}
+			\begin{itemize}
+				\item Chaque dimension peut etre granulaire et ainsi plus ou moins développée.
+			\end{itemize}
+		
+		\paragraph{L'exploitation}
+			\begin{itemize}
+				\item Le \emph{dépliage (Drilldown)} est l'extension d'une dimension vers une dimension à grain plus fin
+				\item Le \emph{pliage (Rollup)} est la réduction d'une dimension vers une dimension à grain plus gros
+				\item La \emph{coupe (Slice)} est la sélection de tranches du cube selon une dimension
+				\end{itemize}
+				~\\
+				
+		\section{Conclusion}
+		
+		Le DataWare House est un domaine qui est en train de monté, avec une interface (le cube de données) qui devient un standard.
+				
+				
+		
+\end{document}
