@@ -89,35 +89,38 @@ captionpos=b%
 		\item \texttt{longuest} \emph{(entier continu)} représente la longueur la plus longue de caractères en lettre capitale retrouvée dans l'e-mail
 		\item \texttt{total} \emph{(entier continu)} représente le total des suites de caractères en lettre capitale dans l'e-mail
 	\end{itemize}
+	~
+	
 	
 \end{enumerate}
 
 \paragraph{Question 2.} ~\\
-\begin{center}
+  \begin{figure}[!h]
+      \centering
 	\begin{tabular}{|c|c|c|c|c|}
 		\hline
 		\textbf{Filtre} 	& \textbf{Taille} 	& \textbf{minNumObj(M)} 	& \textbf{Unpruned} 	& \textbf{Correct} \\
 		\hline
 		\hline
 		Aucun		& 207		& 2		& false			& 92,6\% \\
-		-- 		& 379		& 2		& true			& 92,9\% \\
-\rowcolor{green} -- 		& 163		& 4		& false			& 92,8\% \\
-		-- 		& 257		& 4		& true			& 92,6\% \\
+		%-- 		& 379		& 2		& true			& 92,9\% \\
+		-- 		& 163		& 4		& false			& 92,8\% \\
+		%-- 		& 257		& 4		& true			& 92,6\% \\
 		-- 		& 121		& 6		& false			& 92,0\% \\
-		-- 		& 121		& 6		& true			& 91,0\% \\
 		-- 		& 99		& 10		& false			& 90,4\% \\
 		-- 		& 143		& 10		& true			& 89,0\% \\
 		-- 		& 73		& 15		& true			& 90,3\% \\
 		--		& 47		& 25		& false			& 90,2\% \\
 		--		& 37		& 30		& false			& 90,5\% \\
+		\rowcolor{green}--		& 25		& 33		& false			& 90,4\% \\
 		--		& 27		& 35		& false			& 89,6\% \\
 		--		& 21		& 45		& false			& 89,1\% \\
 		--		& 23		& 50		& false			& 89,1\% \\
-		\hline
-		\hline
-		Normalize 		& 207		& 2		& false		& 92,5\% \\
-		-- 			& 163		& 4		& false		& 92,8\% \\
-		-- 			& 297		& 4		& true		& 92,7\% \\
+		%\hline
+		%\hline
+		%Normalize 		& 207		& 2		& false		& 92,5\% \\
+		%-- 			& 163		& 4		& false		& 92,8\% \\
+		%-- 			& 297		& 4		& true		& 92,7\% \\
 		\hline
 		\hline
 		Standardize 		& 207		& 2		& false		& 92,7\% \\
@@ -131,7 +134,19 @@ captionpos=b%
 		-- 			& 1090		& 4		& true		& 84,2\% \\
 		\hline
 	\end{tabular}
-\end{center}
+	\caption{Informations sur les différents arbres décisionnels testés avec \texttt{Weka} en faisant varier l'algorithme de tri et l'attribut \texttt{minNumObj(M)}}
+    \end{figure}
+~\\
+
+Les règles les plus représentatives sur l'arbre généré avec M = 33 dans la \textsc{Figure 1} sont:
+\begin{itemize}
+  \item \texttt{word\_freq\_free} (2444)
+  \item \texttt{word\_free\_hp} (777)
+  \item \texttt{capital\_run\_length\_longest} (555)
+  \item \texttt{capital\_run\_length\_total} (189)
+  \item \texttt{word\_freq\_our} (184)
+\end{itemize}
+
 \paragraph{Question 3.}
 
 \paragraph{Question 4.}
