@@ -17,7 +17,6 @@
 \usepackage{tabularx}
 \usepackage{graphicx}
 \usepackage{tikz}
-\usepackage{tikz-3dplot}
 
 \usepackage{color}
 \usepackage{verbatim}
@@ -100,30 +99,36 @@ captionpos=b%
 		\textbf{Filtre} 	& \textbf{Taille} 	& \textbf{minNumObj(M)} 	& \textbf{Unpruned} 	& \textbf{Correct} \\
 		\hline
 		\hline
-		Aucun	& 207		& 2					& false						& 92,6\% \\
-		-- 		& 379		& 2					& true						& 92,9\% \\
-		\rowcolor{green} -- 		& 163		& 4					& false						& 92,8\% \\
-		-- 		& 257		& 4					& true						& 92,6\% \\
-		-- 		& 121		& 6					& false						& 92,0\% \\
-		-- 		& 121		& 6					& true						& 91,0\% \\
-		-- 		& 99		& 10				& false						& 90,4\% \\
-		-- 		& 143		& 10				& true						& 89,0\% \\
+		Aucun		& 207		& 2		& false			& 92,6\% \\
+		-- 		& 379		& 2		& true			& 92,9\% \\
+\rowcolor{green} -- 		& 163		& 4		& false			& 92,8\% \\
+		-- 		& 257		& 4		& true			& 92,6\% \\
+		-- 		& 121		& 6		& false			& 92,0\% \\
+		-- 		& 121		& 6		& true			& 91,0\% \\
+		-- 		& 99		& 10		& false			& 90,4\% \\
+		-- 		& 143		& 10		& true			& 89,0\% \\
+		-- 		& 73		& 15		& true			& 90,3\% \\
+		--		& 47		& 25		& false			& 90,2\% \\
+		--		& 37		& 30		& false			& 90,5\% \\
+		--		& 27		& 35		& false			& 89,6\% \\
+		--		& 21		& 45		& false			& 89,1\% \\
+		--		& 23		& 50		& false			& 89,1\% \\
 		\hline
 		\hline
-		Normalize 		& 207		& 2					& false						& 92,5\% \\
-		-- 				& 163		& 4					& false						& 92,8\% \\
-		-- 				& 297		& 4					& true						& 92,7\% \\
+		Normalize 		& 207		& 2		& false		& 92,5\% \\
+		-- 			& 163		& 4		& false		& 92,8\% \\
+		-- 			& 297		& 4		& true		& 92,7\% \\
 		\hline
 		\hline
-		Standardize 		& 207		& 2					& false						& 92,7\% \\
-		-- 					& 379		& 2					& true						& 92,9\% \\
-		-- 					& 163		& 4					& false						& 92,8\% \\
-		-- 					& 257		& 4					& true						& 92,8\% \\
+		Standardize 		& 207		& 2		& false		& 92,7\% \\
+		-- 			& 379		& 2		& true		& 92,9\% \\
+		-- 			& 163		& 4		& false		& 92,8\% \\
+		-- 			& 257		& 4		& true		& 92,8\% \\
 		\hline
 		\hline
-		Discretize 		& 207		& 2					& false						& 92,5\% \\
-		-- 				& 352		& 4					& false						& 82,3\% \\
-		-- 				& 1090		& 4					& true						& 84,2\% \\
+		Discretize 		& 207		& 2		& false		& 92,5\% \\
+		-- 			& 352		& 4		& false		& 82,3\% \\
+		-- 			& 1090		& 4		& true		& 84,2\% \\
 		\hline
 	\end{tabular}
 \end{center}
