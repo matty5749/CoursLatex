@@ -1,0 +1,143 @@
+\documentclass[a4paper,11pt]{article}
+
+\usepackage[frenchb]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage[bookmarks=true,colorlinks,linkcolor=blue]{hyperref}
+
+
+\usepackage[babel]{csquotes}
+\MakeAutoQuote{«}{»}
+
+\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+
+\usepackage{url}
+\usepackage{wrapfig}
+\usepackage{tabularx}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{tikz-3dplot}
+
+\usepackage{color}
+\usepackage{verbatim}
+\usepackage{listings}
+\usepackage{fancyhdr}
+%\usepackage[table]{xcolor}
+\usepackage[table]{colortbl}
+\usepackage{subfig}
+
+\definecolor{colKeys}{rgb}{0,0,1} 
+\definecolor{colIdentifier}{rgb}{0,0,0} 
+\definecolor{colComments}{rgb}{0,0.5,1} 
+\definecolor{colString}{rgb}{0.6,0.1,0.1} 
+
+\lstset{%configuration de listings 
+float=hbp,% 
+basicstyle=\ttfamily\small, % 
+identifierstyle=\color{colIdentifier}, % 
+keywordstyle=\color{colKeys}, % 
+stringstyle=\color{colString}, % 
+commentstyle=\color{colComments}, % 
+columns=flexible, % 
+tabsize=2, % 
+frame=L, % 
+frameround=tttt, % 
+extendedchars=true, % 
+showspaces=false, % 
+showstringspaces=false, % 
+numbers=left, % 
+numberstyle=\tiny, % 
+breaklines=true, % 
+breakautoindent=true, % 
+captionpos=b%
+} 
+
+
+\lstset{language=C++} 
+\lstset{commentstyle=\textit} 
+
+% Matière - Formation Lieu 
+% Cours/TP/TD - Titre
+% Auteur
+% Date
+\title{M2 ID - Data Mining \\ \normalsize (Compte Rendu TD)}
+\author{Quentin \textsc{Beilleau} \& David \textsc{Guinehut}}
+\date{\today}
+
+\begin{document}
+
+%En-tête
+    \lhead{Q. \textsc{Beilleau} \& D. \textsc{Guinehut}}
+	\rhead{Data Mining \emph{TD} - M2ID S1 - 2013}
+	\renewcommand{\headrulewidth}{0.001pt}
+	
+	\pagestyle{fancy}
+	\fancypagestyle{plain}
+	
+	\maketitle
+
+	%\tableofcontents
+
+\paragraph{Question 1.} En plus de la classe qui détermine si un e-mail est un \emph{SPAM/nonSPAM} à l'aide d'une valeur $\in$ \{0,1\}, nous pouvons distinguer trois familles d'attributs:
+
+\begin{enumerate}
+	\item \texttt{word\_freq\_W} \emph{(réel continu)} représente le pourcentage de mots correspondant au mot \texttt{W} dans un même e-mail
+	\item \texttt{char\_freq\_C} \emph{(réel continu)} représente le pourcentage de caractères correspondant au caractère \texttt{C} dans un même e-mail
+	\item \texttt{capital\_run\_length\_X} représente le nombre de caractères en lettre capitale à la suite dans un même mail, \texttt{X} pouvant prendre les valeurs suivante:
+	\begin{itemize}
+		\item \texttt{average} \emph{(réel continu)} représente la moyenne du nombre de caractères en lettre capitale à la suite dans l'e-mail
+		\item \texttt{longuest} \emph{(entier continu)} représente la longueur la plus longue de caractères en lettre capitale retrouvée dans l'e-mail
+		\item \texttt{total} \emph{(entier continu)} représente le total des suites de caractères en lettre capitale dans l'e-mail
+	\end{itemize}
+	
+\end{enumerate}
+
+\paragraph{Question 2.} ~\\
+\begin{center}
+	\begin{tabular}{|c|c|c|c|c|}
+		\hline
+		\textbf{Filtre} 	& \textbf{Taille} 	& \textbf{minNumObj(M)} 	& \textbf{Unpruned} 	& \textbf{Correct} \\
+		\hline
+		\hline
+		Aucun	& 207		& 2					& false						& 92,6\% \\
+		-- 		& 379		& 2					& true						& 92,9\% \\
+		\rowcolor{green} -- 		& 163		& 4					& false						& 92,8\% \\
+		-- 		& 257		& 4					& true						& 92,6\% \\
+		-- 		& 121		& 6					& false						& 92,0\% \\
+		-- 		& 121		& 6					& true						& 91,0\% \\
+		-- 		& 99		& 10				& false						& 90,4\% \\
+		-- 		& 143		& 10				& true						& 89,0\% \\
+		\hline
+		\hline
+		Normalize 		& 207		& 2					& false						& 92,5\% \\
+		-- 				& 163		& 4					& false						& 92,8\% \\
+		-- 				& 297		& 4					& true						& 92,7\% \\
+		\hline
+		\hline
+		Standardize 		& 207		& 2					& false						& 92,7\% \\
+		-- 					& 379		& 2					& true						& 92,9\% \\
+		-- 					& 163		& 4					& false						& 92,8\% \\
+		-- 					& 257		& 4					& true						& 92,8\% \\
+		\hline
+		\hline
+		Discretize 		& 207		& 2					& false						& 92,5\% \\
+		-- 				& 352		& 4					& false						& 82,3\% \\
+		-- 				& 1090		& 4					& true						& 84,2\% \\
+		\hline
+	\end{tabular}
+\end{center}
+\paragraph{Question 3.}
+
+\paragraph{Question 4.}
+    Pour appliquer l'algorithme \og{}APriori\fg{}, il a fallu appliquer le filtre non supervisé sur les attributs : \og{}Discretize\fg{}. Le principe de discrétisation consiste à remplacer des relations portant sur des fonctions continues, dérivables, etc., par un nombre fini de relations algébriques portant sur les valeurs prises par ces fonctions en un nombre fini de points de leur ensemble de définition.
+    
+    Pour la réalisation du traitement, l'onglet \og{}Associate\fg{}, de sélectionner  l'algorithme APrioiri, de le configurer et de l'exécuter.
+
+\paragraph{Question 5.}
+
+
+
+				
+		
+\end{document}
