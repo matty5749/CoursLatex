@@ -138,7 +138,9 @@ captionpos=b%
     \end{figure}
 ~\\
 
-Les règles les plus représentatives sur l'arbre généré avec M = 33 dans la \textsc{Figure 1} sont:
+L'arbre le plus \og{}satisfaisant\fg{} est surligné en vert avec l'attribut \texttt{minNumObj(M)} = 33, ayant pour taille 25 et un taux d'instances correctement classifiées de 90,4\%.\\
+
+Les règles les plus représentatives de cette arbre sont:
 \begin{itemize}
   \item \texttt{word\_freq\_free} (2444)
   \item \texttt{word\_free\_hp} (777)
@@ -148,14 +150,22 @@ Les règles les plus représentatives sur l'arbre généré avec M = 33 dans la 
 \end{itemize}
 
 \paragraph{Question 3.}
+Plus le jeu d'exemples est petit, plus la variation des paramètres du classifieur à d'influence sur le réseau de neuronnes produit et plus la classification sera rapide. C'est pour cela que nous restraignons le jeu d'exemples entre 15\% à 20\% des exemples.\\
+
+% Comment comprenez-vous les résultats fournis ?
+
+
+% Quelle est la forme du réseau construit ?
 
 \paragraph{Question 4.}
-    Pour appliquer l'algorithme \og{}APriori\fg{}, il a fallu appliquer le filtre non supervisé sur les attributs : \og{}Discretize\fg{}. Le principe de discrétisation consiste à remplacer des relations portant sur des fonctions continues, dérivables, etc., par un nombre fini de relations algébriques portant sur les valeurs prises par ces fonctions en un nombre fini de points de leur ensemble de définition.
+    Pour appliquer l'algorithme \texttt{APriori}, il est nécessaire d'appliquer le filtre non supervisé \texttt{Discretize} sur les attributs. \\
     
-    Pour la réalisation du traitement, l'onglet \og{}Associate\fg{}, de sélectionner  l'algorithme APrioiri, de le configurer et de l'exécuter.
+    Le principe de discrétisation consiste à remplacer des relations portant sur des fonctions continues, dérivables ou autres, par un nombre fini de relations algébriques portant sur les valeurs prises par ces fonctions en un nombre fini de points de leur ensemble de définition.\\
+    
+    Pour la réalisation du traitement, l'onglet \og{}Associate\fg{} permet de sélectionner  l'algorithme APrioiri, de le configurer et de l'exécuter.
 
 \paragraph{Question 5.}
-
+	
 
 
 				

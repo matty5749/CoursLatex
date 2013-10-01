@@ -195,34 +195,35 @@ $\forall x \in E,f_{m(A)}(X)=t_m(f_A(X)) $
 \end{center}
 \begin{center}
 \begin{tabular}{|c|c|c|c|c|c|c|}
-\hline
-\multicolumn{6}{|c|}{VENTE} \\
-
-\hline 
-Adresse & Age & Prix & $f_{vieux}$ & $f_{tresVieux}$ & $f_{tresCher}$ \\ 
-\hline 
-FOCH & 20 & 1 & 0 & 0 & 1\\ 
-\hline 
-IENA & 100 & 0,8 & 1 & 1 & 0\\ 
-\hline 
-LAFAYETTE & 90 & 0,9 & 0.8 & 0.64 & 0.25\\ 
-\hline 
-BELLE-BEILLE & 20 & 0,5 & 0 & 0 & 0\\ 
-\hline 
-BLEU & 80 & 1 & 0.6 & 0.36 & 1\\ 
-\hline 
+	\hline
+	\multicolumn{6}{|c|}{\textbf{VENTE}} \\
+	\hline
+	\hline 
+	Adresse & Age & Prix & $f_{vieux}$ & $f_{tresVieux}$ & $f_{tresCher}$ \\ 
+	\hline 
+	\hline
+	FOCH & 20 & 1 & 0 & 0 & 1\\ 
+	\hline 
+	IENA & 100 & 0,8 & 1 & 1 & 0\\ 
+	\hline 
+	LAFAYETTE & 90 & 0,9 & 0.8 & 0.64 & 0.25\\ 
+	\hline 
+	BELLE-BEILLE & 20 & 0,5 & 0 & 0 & 0\\ 
+	\hline 
+	BLEU & 80 & 1 & 0.6 & 0.36 & 1\\ 
+	\hline 
 \end{tabular} 
 \end{center}
-\begin{verbatim}
-Select
-from Vente
-where tresVieux(Age)
+\begin{lstlisting}[mathescape]
+SELECT
+FROM Vente
+WHERE tresVieux(Age)
 
-Select
-from Vente
-where tresCher(Prix)
+SELECt
+FROM Vente
+WHERE tresCher(Prix)
 
-\end{verbatim}
+\end{lstlisting}
 
 \subsection{Limitation de la méthode}
 La sémantique de "tres" ou "peu" peut-être différente en fonction des mots choisi, or la définition de "très" est générique.
@@ -274,35 +275,38 @@ La sémantique de "tres" ou "peu" peut-être différente en fonction des mots ch
 \textbf{Exemple:}
 \begin{center}
 \begin{tabular}{|c|c|c|}
-\hline
-\multicolumn{3}{|c|}{STAGE}\\
-\hline 
-Titre & Indemnité & Durée \\ 
-\hline 
-dev.Web & 500 (a1) & 6 \\ 
-\hline 
-analyse & [500,1000](500,500,1000,1000) (a2) & 6 \\ 
-\hline 
-Prog & fig1(0,500,1000,1500) (a3) & 3 \\ 
-\hline 
-Doc & 500 (a1) & 3 \\ 
-\hline 
-BDD & [500,1000](500,500,1000,1000) (a2) & 6 \\ 
-\hline
+	\hline
+	\multicolumn{3}{|c|}{\textbf{STAGE}}\\
+	\hline 
+	\hline
+	Titre & Indemnité & Durée \\ 
+	\hline
+	\hline 
+	dev.Web & 500 (a1) & 6 \\ 
+	\hline 
+	analyse & [500,1000](500,500,1000,1000) (a2) & 6 \\ 
+	\hline 
+	Prog & fig1(0,500,1000,1500) (a3) & 3 \\ 
+	\hline 
+	Doc & 500 (a1) & 3 \\ 
+	\hline 
+	BDD & [500,1000](500,500,1000,1000) (a2) & 6 \\ 
+	\hline
 \end{tabular} 
 \end{center}
 
 \begin{center}
 \begin{tabular}{|c|c|c|c|c|}
-\hline
-\multicolumn{5}{|c|}{TRAPEZE}\\
-\hline 
-a1 & 500 & 500 & 500 & 500 \\ 
-\hline 
-a2 & 500 & 500 & 1000 & 1000 \\ 
-\hline 
-a3 & 0 & 500 & 1000 & 1500 \\ 
-\hline 
+	\hline
+	\multicolumn{5}{|c|}{\textbf{TRAPEZE}}\\
+	\hline
+	\hline 
+	a1 & 500 & 500 & 500 & 500 \\ 
+	\hline 
+	a2 & 500 & 500 & 1000 & 1000 \\ 
+	\hline 
+	a3 & 0 & 500 & 1000 & 1500 \\ 
+	\hline 
 \end{tabular} 
 \end{center}
 
@@ -334,17 +338,18 @@ a3 & 0 & 500 & 1000 & 1500 \\
 
 \begin{center}
 \begin{tabular}{|c|c|c|}
-\hline 
-Adresse & Age & Prix \\ 
-\hline 
-JOFFRE & 50 & (0.5;1;$+\infty$;$+\infty$) \\ 
-\hline 
-IENA & 90 & (1.1;1.1;1.2;1.2) \\ 
-\hline 
-EIFFEL & 60 & 1.8 \\ 
-\hline 
-JOFFRE & 95 & (0.8;0.9;1.5;1.6) \\ 
-\hline 
+	\hline 
+	\textbf{Adresse} & \textbf{Age} & \textbf{Prix} \\ 
+	\hline 
+	\hline
+	JOFFRE & 50 & (0.5;1;$+\infty$;$+\infty$) \\ 
+	\hline 
+	IENA & 90 & (1.1;1.1;1.2;1.2) \\ 
+	\hline 
+	EIFFEL & 60 & 1.8 \\ 
+	\hline 
+	JOFFRE & 95 & (0.8;0.9;1.5;1.6) \\ 
+	\hline 
 \end{tabular} 
 \end{center}
 
@@ -360,196 +365,238 @@ $ ps(X est A / Xest A')=sup\{min(f_A(x),f_{A'}(x)) / x \in E\} $
 \item la mesure de nécessité (Pessimisme)\\
 $ nc(X est A / X est A')=inf \{max(1-f_{A'}(x), f_A(x)) / x \in E\} $
 \end{itemize}
-N.B.: Le résultat du minimum de deux fonctions floues est une fonction floue.
+~
+
+\emph{\textbf{N.B.}: Le résultat du minimum de deux fonctions floues est une fonction floue.}
+
 \begin{center}
 \begin{tabular}{|c|c|c|c|c|}
-\hline 
-Adresse & Age & Prix & Ps & Nc \\ 
-\hline 
-JOFFRE & 50 & (0.8;0.9;1.1;1.2) & 0.5 & 0 \\ 
-\hline 
-IENA & 90 & (1.1;1.1;1.7;1.7) & 1 & 0.5  \\ 
-\hline 
-EIFFEL & 60 & 1.8 & 1 & 1  \\ 
-\hline 
-JOFFRE & 95 & (1.3;1.4;1.5;1.6) & 1 & 1  \\ 
-\hline 
+	\hline 
+	\textbf{Adresse} & \textbf{Age} & \textbf{Prix} & \textbf{Ps} & \textbf{Nc} \\ 
+	\hline
+	\hline 
+	JOFFRE & 50 & (0.8;0.9;1.1;1.2) & 0.5 & 0 \\ 
+	\hline 
+	IENA & 90 & (1.1;1.1;1.7;1.7) & 1 & 0.5  \\ 
+	\hline 
+	EIFFEL & 60 & 1.8 & 1 & 1  \\ 
+	\hline 
+	JOFFRE & 95 & (1.3;1.4;1.5;1.6) & 1 & 1  \\ 
+	\hline 
 \end{tabular} 
 \end{center}
 avec $f_{prixEleve}:(1;1.2;1.8;2)$
 
+\begin{lstlisting}[mathescape]
+SELECT col1,...,coln,cdeg(ps|n)
+FROM T1,...,Tm
+WHERE condition
+\end{lstlisting}
+~
 
-Select col1,...,coln,cdeg(ps|n)
-from T1,...,Tm
-where condition
-
-\begin{itemize}
-\item cdeg(ps|n): rend trié sur degré de ps ou nc
-\item condition:faible(indemnité)...prixEleve(Prix)...faible(Indemnité) $>$ NFEQ 0,1 retorne les résultats avec un degré de nécéssité supérieur a 0,1\\
-faible(indemnité)$>$FEQ 0,1 retourne les résultats avec un degré de possibilité supérieur à 0,1
-\end{itemize}
+\noindent \texttt{cdeg(ps|n)} rend trié sur degré de ps ou nc\\
+\texttt{condition:faible(indemnité)...prixEleve(Prix)...faible(Indemnité) $>$ NFEQ 0,1} retourne les résultats avec un degré de nécéssité supérieur a 0,1\\
+\texttt{faible(indemnité)$>$FEQ 0,1} retourne les résultats avec un degré de possibilité supérieur à 0,1
 
 \subsection{TD1 Flou, SGBD}
 \subsubsection{Exercice 1}
-1)Relations floues
-\begin{itemize}
-\item $f_{J\&K}(x)=min(f_J(x),f_K(x))$
-\item $f_{J\|K}(x)=max(f_J(x),f_K(x))$
-\end{itemize}
+\paragraph{1) Relations floues} ~\\
+	\begin{itemize}
+	\item $f_{J\&K}(x)=min(f_J(x),f_K(x))$
+	\item $f_{J\|K}(x)=max(f_J(x),f_K(x))$
+	\end{itemize}
 
-2)Théorie des possibilités
+\paragraph{2) Théorie des possibilités} ~\\
 \begin{itemize}
 \item $Ps(f_J|f_{[18;18;28;28]})=sup\{min(f_J|f_{[18;18;28;28]})\}=1$
 \item $Nc(f_J|f_{[18;18;28;28]})=inf\{max(1-f_{[18;18;28;28]},f_J)\}=0$
 \end{itemize}
-N.B.:Attention à l'ordre prédicat/données\\
+~
 
-3)Modérateurs linguistique\\
+\emph{\textbf{N.B.}: Attention à l'ordre prédicat/données}\\
+
+\paragraph{3) Modérateurs linguistique} ~\\
+
 $f_{tres}(x)=x^2 $
+
 \subsubsection{Exercice 2}
 
-1)Définitions de fonction floues
+\paragraph{1) Définitions de fonction floues} ~\\
 
-$f_{GrandDom}=[0;150;200;+\infty]$\\
+\noindent $f_{GrandDom}=[0;150;200;+\infty]$\\
 $f_{Difficile}=[20;25;+\infty;+\infty]$\\
 $f_{Facile}=[0;0;20;25]$\\
 $f_{Moyen}=[260;280;320;340]$\\
 $f_{MoyenneMontagne}=[1300;1500;1500;1700]$\\
 
-2)Requetes et résultats
+\paragraph{2) Requetes et résultats}
 
-a)Stations avec un grand domaine skiable\\\\
-select S.Nom\\ 
-from Stations S\\
-where $f_{GrandDom}$(S.Domaine)\\
-
-\begin{tabular}{|c|c|}
-\hline 
-Nom & $f_{GrandDom}$ \\ 
-\hline 
-Courch & 1 \\ 
-\hline 
-DeuxA & 0.8 \\ 
-\hline 
-Samo & 0.4 \\ 
-\hline 
-Serre & 1 \\ 
-\hline 
-\end{tabular} \\\\
-
-b)Stations avec un grand domaine skiable et beaucoup de pistes difficiles\\\\
-select S.Nom\\ 
-from Stations S\\
-where $f_{GrandDom}$(S.Domaine) \& $f_{Difficile}$(S.PisteRN)\\
-
-\begin{tabular}{|c|c|c|c|}
-\hline 
-Nom & $f_{GrandDom}$ & $f_{Difficile}$ & Resultat \\ 
-\hline 
-Courch & 1 & 1 & 1 \\ 
-\hline 
-DeuxA & 0.8 & 1 & 0.8 \\ 
-\hline 
-Samo & 0.4 & 1 & 0.4 \\ 
-\hline 
-Serre & 1 & 1 & 1 \\ 
-\hline 
-\end{tabular}\\\\
-
-c)Stations à environ 1500m avec beaucoup de piste difficiles\\\\
-select S.Nom\\ 
-from Stations S\\
-where $f_{MoyenneMontagne}$(S.Altitude) \& $f_{Difficile}$(S.PisteRN)\\
-
-\begin{tabular}{|c|c|c|c|}
-\hline 
-Nom & $f_{MoyenneMontagne}$ & $f_{Difficile}$ & Resultat \\ 
-\hline 
-Courch & 1 & 1 & 1 \\ 
-\hline 
-Serre & 1 & 1 & 1 \\ 
-\hline 
-\end{tabular}\\\\
-
-d)Stations ou l'on peut trouver un hotel à prix moyen\\\\
-select S.Nom\\ 
-from Stations S natural join Hotels H\\
-where $f_{Moyen}$(H.Prix) \\
+\subparagraph{a) Stations avec un grand domaine skiable} ~\\
+\begin{lstlisting}[mathescape]
+select S.Nom
+from Stations S
+where $f_{GrandDom}$(S.Domaine)
+\end{lstlisting}
+~
 
 \begin{tabular}{|c|c|}
-\hline 
-Nom & $f_{Moyen}$ \\ 
-\hline 
-Samo & 0.5 \\ 
-\hline 
-Courch & 1 \\ 
-\hline 
-Pierre & 1 \\ 
-\hline 
-\end{tabular}\\
+	\hline 
+	\textbf{Nom} & $f_{GrandDom}$ \\ 
+	\hline 
+	\hline
+	Courch & 1 \\ 
+	\hline 
+	DeuxA & 0.8 \\ 
+	\hline 
+	Samo & 0.4 \\ 
+	\hline 
+	Serre & 1 \\ 
+	\hline 
+\end{tabular}
 
-N.B: distinct ajoute une borne sup sur la condition\\
+\subparagraph{b) Stations avec un grand domaine skiable et beaucoup de pistes difficiles} ~\\
+\begin{lstlisting}[mathescape]
+SELECT S.Nom
+FROM Stations S
+WHERE $f_{GrandDom}$(S.Domaine) & $f_{Difficile}$(S.PisteRN)
+\end{lstlisting}
+~
 
-e)Stations avec un hôtel à prix moyen ou un grand domaine skiable\\\\
-select S.Nom\\ 
-from Stations S natural join Hotels H\\
-where $f_{Moyen}$(Prix) $\|$ $f_{GrandDom}$\\
+\begin{tabular}{|c|c|c|c|}
+	\hline 
+	\textbf{Nom} & $f_{GrandDom}$ & $f_{Difficile}$ & \textbf{Résultat} \\ 
+	\hline
+	\hline
+	Courch & 1 & 1 & 1 \\ 
+	\hline 
+	DeuxA & 0.8 & 1 & 0.8 \\ 
+	\hline 
+	Samo & 0.4 & 1 & 0.4 \\ 
+	\hline 
+	Serre & 1 & 1 & 1 \\ 
+	\hline 
+\end{tabular}
+~\\
 
+\subparagraph{c) Stations à environ 1500m avec beaucoup de piste difficiles} ~\\
+
+\begin{lstlisting}[mathescape]
+SELECT S.Nom
+FROM Stations S
+WHERE $f_{MoyenneMontagne}$(S.Altitude) & $f_{Difficile}$(S.PisteRN)
+\end{lstlisting}
+~
+
+\begin{tabular}{|c|c|c|c|}
+	\hline 
+	\textbf{Nom} & $f_{MoyenneMontagne}$ & $f_{Difficile}$ & \textbf{Résultat} \\ 
+	\hline 
+	\hline
+	Courch & 1 & 1 & 1 \\ 
+	\hline 
+	Serre & 1 & 1 & 1 \\ 
+	\hline 
+\end{tabular}
+~
+
+\subparagraph{d) Stations ou l'on peut trouver un hotel à prix moyen} ~\\
+
+\begin{lstlisting}[mathescape]
+SELECT S.Nom
+FROM Stations S natural join Hotels H
+WHERE $f_{Moyen}$(H.Prix)
+\end{lstlisting}
+~
+
+\begin{tabular}{|c|c|}
+	\hline 
+	\textbf{Nom} & $f_{Moyen}$ \\ 
+	\hline 
+	\hline
+	Samo & 0.5 \\ 
+	\hline 
+	Courch & 1 \\ 
+	\hline 
+	Pierre & 1 \\ 
+	\hline 
+\end{tabular}
+~\\
+
+\emph{\textbf{N.B.}: distinct ajoute une borne sup sur la condition}
+
+\subparagraph{e) Stations avec un hôtel à prix moyen ou un grand domaine skiable} ~\\
+
+\begin{lstlisting}[mathescape]
+SELECT S.Nom
+FROM Stations S natural join Hotels H
+WHERE $f_{Moyen}$(Prix) $\|$ $f_{GrandDom}$
+\end{lstlisting}
+~
 
 \begin{tabular}{|c|c|c|c|}
 \hline 
-Nom & $f_{Moyen}$ & $f_{GrandDom}$ & $f_{Moyen \| GrandDom}=max(f_{Moyen},f_{GrandDom})$ \\ 
-\hline 
-Samo & 0.5 & 0.4 & 0.5 \\
-\hline 
-Courch & 1 & 1 & 1 \\ 
-\hline 
-Pierre & 1 & 0 & 1 \\ 
-\hline 
-DeuxA & 0 & 0.8 & 0.8 \\ 
-\hline 
-Serre & 0 & 1 & 1 \\ 
-\hline 
-\end{tabular}\\\\
+	\textbf{Nom} & $f_{Moyen}$ & $f_{GrandDom}$ & $f_{Moyen \| GrandDom}=max(f_{Moyen},f_{GrandDom})$ \\ 
+	\hline 
+	\hline
+	Samo & 0.5 & 0.4 & 0.5 \\
+	\hline 
+	Courch & 1 & 1 & 1 \\ 
+	\hline 
+	Pierre & 1 & 0 & 1 \\ 
+	\hline 
+	DeuxA & 0 & 0.8 & 0.8 \\ 
+	\hline 
+	Serre & 0 & 1 & 1 \\ 
+	\hline 
+\end{tabular}
+~
 
-f)Stations où le prix du forfait est environ la moitié du prix d'une chambre: environ, à définir, permet une tolérance linéaire de 50\\\\
-select S.Nom\\ 
-from Stations S natural join Hotels H\\
-where S.Forfait $\approx$ H.Prix/2 \\
+\subparagraph{f) Stations où le prix du forfait est environ la moitié du prix d'une chambre: environ, à définir, permet une tolérance linéaire de 50} ~\\
+
+\begin{lstlisting}[mathescape]
+SELECT S.Nom 
+FROM Stations S natural join Hotels H
+WHERE S.Forfait $\approx$ H.Prix/2
+\end{lstlisting}
+~
 avec $f_{\approx} = |X-Y| \leq 50 $\\
 
 \begin{tabular}{|c|c|c|c|c|c|}
-\hline 
-Nom & IdStation & Prix/2 & Forfait & $f_{\approx}$ & DISTINCT\\ 
-\hline 
-Samo & 102 & 125 & 150 & $25\rightarrow0.5$ & NON \\ 
-\hline 
-Samo & 102 & 165 & 150 & $15\rightarrow0.7$ & OUI \\ 
-\hline 
-Samo & 102 & 120 & 150 & $30\rightarrow0.4$ & NON \\ 
-\hline 
-Samo & 102 & 130 & 150 & $20\rightarrow0.6$ & NON \\ 
-\hline 
-Courch & 100 & 155 & 200 & $45\rightarrow0.1$ & NON \\ 
-\hline 
-Courch & 100 & 225 & 200 & $25\rightarrow0.5$ & OUI \\ 
-\hline 
-Pierre & 201 & 135 & 90 & $45\rightarrow0.1$ & OUI \\ 
-\hline 
-Pierre & 201 & 150 & 90 & $60\rightarrow 0$ & NON \\ 
-\hline 
+	\hline 
+	\textbf{Nom} & \textbf{IdStation} & \textbf{Prix/2} & \textbf{Forfait} & $f_{\approx}$ & \textbf{DISTINCT}\\ 
+	\hline 
+	\hline
+	Samo & 102 & 125 & 150 & $25\rightarrow0.5$ & NON \\ 
+	\hline 
+	Samo & 102 & 165 & 150 & $15\rightarrow0.7$ & OUI \\ 
+	\hline 
+	Samo & 102 & 120 & 150 & $30\rightarrow0.4$ & NON \\ 
+	\hline 
+	Samo & 102 & 130 & 150 & $20\rightarrow0.6$ & NON \\ 
+	\hline 
+	Courch & 100 & 155 & 200 & $45\rightarrow0.1$ & NON \\ 
+	\hline 
+	Courch & 100 & 225 & 200 & $25\rightarrow0.5$ & OUI \\ 
+	\hline 
+	Pierre & 201 & 135 & 90 & $45\rightarrow0.1$ & OUI \\ 
+	\hline 
+	Pierre & 201 & 150 & 90 & $60\rightarrow 0$ & NON \\ 
+	\hline 
 \end{tabular} 
+~
 
 \subsubsection{Exercice 3}
 
-N.B.Lors d'un calcul de possibilitée ou necessité, il faut considerer les constantes comme des valeurs floues.
+\emph{\textbf{N.B}.: Lors d'un calcul de possibilitée ou necessité, il faut considerer les constantes comme des valeurs floues.}
 
-1)Il faut définir la table TRAPEZE qui contiendra les fonctions floues que l'on souhaite modéliser: Mûr, Jeune, Vieux, Elevé, Faible\\
+\paragraph{1)} Il faut définir la table TRAPEZE qui contiendra les fonctions floues que l'on souhaite modéliser: Mûr, Jeune, Vieux, Elevé, Faible
 
-2)\\
-Select C.Nom\\
-from Cadre C\\
-where $f_{moyenSup}(C.Salaire)$\\
+\paragraph{2)} ~
+\begin{lstlisting}[mathescape]
+SELECT C.Nom
+FROM Cadre C
+WHERE $f_{moyenSup}(C.Salaire)$
+\end{lstlisting}
 
 \part{Data Ware House}
 \section{Entrepot de données}
