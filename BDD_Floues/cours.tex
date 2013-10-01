@@ -40,12 +40,12 @@ stringstyle=\color{colString}, %
 commentstyle=\color{colComments}, % 
 columns=flexible, % 
 tabsize=2, % 
-frame=L, % 
+frame=l, % 
 frameround=tttt, % 
 extendedchars=true, % 
 showspaces=false, % 
 showstringspaces=false, % 
-numbers=left, % 
+%numbers=left, % 
 numberstyle=\tiny, % 
 breaklines=true, % 
 breakautoindent=true, % 
@@ -53,7 +53,7 @@ captionpos=b,%
 } 
 \usetikzlibrary{positioning}
 
-\lstset{language=C++} 
+\lstset{language=SQL} 
 \lstset{commentstyle=\textit} 
 
 % Matière - Formation Lieu 
@@ -61,14 +61,14 @@ captionpos=b,%
 % Auteur
 % Date
 \title{M2 ID - Bases de données avancées \\ \normalsize (Cours)}
-\author{David \textsc{Guinehut}\\Jean-Mathieu \textsc{Chantrein}}
+\author{Jean-Mathieu \textsc{Chantrein} \\ David \textsc{Guinehut}}
 
 \date{\today}
 
 \begin{document}
 
 %En-tête
-	\lhead{David \textsc{Guinehut}\\Jean-Mathieu \textsc{Chantrein}}
+	\lhead{J-M. \textsc{Chantrein}, D. \textsc{Guinehut}}
 	\rhead{Bases de données avancées \emph{Cours} - M2ID S1 - 2013}
 	\renewcommand{\headrulewidth}{0.001pt}
 	
@@ -79,8 +79,13 @@ captionpos=b,%
 
 	\tableofcontents
 
-\section*{Prelude}
-Cours présenté par Stéphane \textsc{Loiseau}
+\section*{Prélude}
+Cours présenté par Stéphane \textsc{Loiseau}, Enseignant-Chercheur au LERIA \emph{(Laboratoire En Recherche Informatique d'Angers)}.\\
+
+Contact:
+	\begin{itemize}
+		\item[] \url{stephane.loiseau@univ-angers.fr} 
+	\end{itemize}
 
 \part{Base de données Floues, données précises, FQUERY}
 
@@ -98,110 +103,79 @@ En logique classique, un \textbf{prédicat} est un terme (une expression) évalu
 \subsection{Moyen}
 Définir chaque prédicat flou par un sous ensemble flou[Zadeh65].
 
-
 Un \textbf{sous ensemble flou} $A$ de $E$ est défini par une fonction d'appartenance $f_A$ qui associe à chaque élément $x$ de $E$, le degré d'appartenance $f_A(X)$ avec lequel il appartient à A(entre 0 et 1):$$f_A:E\rightarrow[O;1]$$
 
-		\begin{center}
-		\begin{tikzpicture}
-			\begin{axis}[
-			xlabel={$E$},
-			ylabel={$f_A(X)$},
-			axis x line=bottom,
-			axis y line=left,
-			xscale=1.2,
-			yscale=0.5,
-			xtick=data,
-			legend entries={$f_{etreGrand}$,hauteur,noyeau,support},
-			legend style={at={(1,1)},anchor=south west}]
-			
-				\addplot+[mark=none,line width= 2] coordinates{(0,0)(180,0)(200,1)(250,1)};
-				\addplot+[mark=none,line width= 4,red] coordinates{(220,0)(220,1)};
-				\addplot+[mark=none,line width= 4,green] coordinates{(200,1.04)(250,1.04)};
-				\addplot+[mark=none,line width= 4,cyan] coordinates{(180,0.02)(250,0.02)};
-				
-			\end{axis}	
-		\end{tikzpicture}
-	
-	
-\end{center}		
-\begin{center}
-
-\begin{tikzpicture}
-			\begin{axis}[
-			xmin=0,
-			ymin=0,
-			xlabel={$E$},
-			ylabel={$f_A(X)$},
-			axis x line=bottom,
-			axis y line=left,
-			xscale=1.2,
-			yscale=0.5,
-			xtick=data,
-			legend entries={$f_{animal}$},
-			legend style={at={(1,1)},anchor=south west},
-			xticklabels={Chien,Chat,Homme,Microbe}]
-			
-				\addplot+[only marks,green,line width=3] coordinates{(1,1)(2,1)(3,1)(4,0.7)}; 
-			\end{axis}	
-		\end{tikzpicture}					
+		\begin{figure}[!h]
+			\centering
+			\input{./figures/tikz/Part1_etreGrand.tex}
+			\caption{CAPTION - TODO}
+		\end{figure}
 		
-		\end{center}
+		\begin{figure}[!h]
+			\centering
+			\input{./figures/tikz/Part1_animal.tex}
+			\caption{CAPTION - TODO}
+		\end{figure}
 		
 \subsection{Définitions}
 
-Le \textbf{support} du sous ensemble $A$ de $E$ est:$$support(A)=\{x \in E | f_A(x)<>0 \}$$
+Le \textbf{support} du sous ensemble $A$ de $E$ est: \begin{center} \fbox{$support(A)=\{x \in E | f_A(x)<>0 \}$} \end{center}
 
-La \textbf{hauteur} du sous ensemble $A$ de $E$ est:$$hauteur(A)=sup_{x \in E} f_A(x)$$
+La \textbf{hauteur} du sous ensemble $A$ de $E$ est: \begin{center} \fbox{$hauteur(A)=sup_{x \in E} f_A(x)$} \end{center}
 
-Le \textbf{noyau} du sous ensemble $A$ de $E$ est:$$noyau(A)=\{x \in E | f_A(x)=1 \}$$
+Le \textbf{noyau} du sous ensemble $A$ de $E$ est: \begin{center} \fbox{$noyau(A)=\{x \in E | f_A(x)=1 \}$} \end{center}
 
 \section{Relations floues}
-Une \textbf{requete floue(FQUERY)} est une requete exprimée en SQL, dont la partie condition est étendue pour traiter les prédicats flous définis:\\\\
-select $A_1$...$A_n$\\
-from table\\
-where conditions\\
+Une \textbf{requete floue(FQUERY)} est une requete exprimée en SQL, dont la partie condition est étendue pour traiter les prédicats flous définis:\\
+
+\begin{lstlisting}[mathescape]
+SELECT $A_1$...$A_n$
+FROM tableA
+WHERE conditions
+\end{lstlisting}
+~
 
 Le \textbf{résultat d'une requête floue} est une \textbf{relation flou} BD, c'est une relation résultat pour lequel chaque tuple a un degré d'appartenance dans $[0;1]$, décrivant le succès de la requête.
 
 \section{Opérateurs}
-La \textbf{sélection floue} consiste à appliquer un prédicat flou construit par l’utilisation de l'opérateur unaire (NOT) et/ou des opérateurs binaires (AND/OR) sur les prédicats flous donnés.
+La \textbf{sélection floue} consiste à appliquer un prédicat flou construit par l’utilisation de l'opérateur unaire (NOT) et/ou des opérateurs binaires (AND/OR) sur les prédicats flous donnés.\\
 
-\par Il faut définir:
+Il faut définir:
 \begin{itemize}
-\item$f_{!A}(x)$
-\item$f_{A\&B}(x)$
-\item$f_{A\|B}(x)$
+	\item$f_{!A}(x)$	
+	\item$f_{A\&B}(x)$
+	\item$f_{A\|B}(x)$
 \end{itemize} 
+~
 
-La \textbf{négation} d'un sous ensemble flou (appelé \textbf{complément} en logique flou)$A$ de $E$ est défini par:$$f_{!A}(x)=1-f_A(x)$$
+La \textbf{négation} d'un sous ensemble flou (appelé \textbf{complément} en logique flou)$A$ de $E$ est défini par: \begin{center} \fbox{$f_{!A}(x)=1-f_A(x)$} \end{center}
 
-La \textbf{disjonction} (union) de 2 sous ensembles flou $A,B$ de $E$ est défini par:
-$$f_{A\|B}(x)=max(f_A(x),f_B(X))$$
+La \textbf{disjonction} (union) de 2 sous ensembles flou $A,B$ de $E$ est défini par: \begin{center} \fbox{$f_{A\|B}(x)=max(f_A(x),f_B(X))$} \end{center}
 
-La \textbf{conjonction} (intersection) de 2 sous ensembles flou $A,B$ de $E$ est défini par:
-$$f_{A\&B}(x)=min(f_A(x),f_B(X))$$
+La \textbf{conjonction} (intersection) de 2 sous ensembles flou $A,B$ de $E$ est défini par: \begin{center} \fbox{$f_{A\&B}(x)=min(f_A(x),f_B(X))$} \end{center}
 
-\emph{\textbf{Remarque:}
+\paragraph{\emph{Remarque:}}
 Pour palier à la rigidité de $f_{A\&B}(x)$, on peut utiliser OWA(Ordered Weighted Averaging). Mais cette possibilité ne fait pas partie de la BDD floue:
 $$ F_{A_1\&...\&A_i\&...\&A_n}(x)=w_1f_{A_1}(x)+...+w_if_{A_i}(x)+...+w_nf_{A_n}(x)$$
+\\
+
 avec $\sum_{i=1}^{n} w_i=1$ et $\forall i,f_{A_i}(x)\geq f_{A_{i+1}}(x)$
-}
+
 \begin{itemize}
-\item si $w_1=1$ alors $w_i=0$ et disjonction floue (max)
-\item si $w_n=1$ alors $w_i=0$ et intersection floue (min)
-\item si $w_i=\frac{1}{n}$ alors moyenne arithmétique
+	\item si $w_1=1$ alors $w_i=0$ et disjonction floue (max)
+	\item si $w_n=1$ alors $w_i=0$ et intersection floue (min)
+	\item si $w_i=\frac{1}{n}$ alors moyenne arithmétique
 \end{itemize}
 
 
 \subsection{Jointure floue}
  
-\begin{flushleft}
-select R,S\\
-from R,S\\
-where RC $\approx$ S.D\\
+\begin{lstlisting}[mathescape]
+SELECT R,S
+FROM R,S
+WHERE RC $\approx$ S.D
+\end{lstlisting}
 où $\approx$ est un opérateur de jointure flou fournit par $f \approx (a,b)$ 
-\end{flushleft}
-
 
 
 \section{Modificateurs}
@@ -211,30 +185,15 @@ Utiliser un opérateur qui permettent de moduler des prédicats. Ex: très, peu.
 Un \textbf{modificateur linguistique} $m$ est une fonction qui associe à tout sous ensemble flou A de E, un sous ensemble flou $m(A)$ de E par l'intermédiaire d'une fonction $t_m$ tel que:
 $\forall x \in E,f_{m(A)}(X)=t_m(f_A(X)) $
 
-\textbf{Exemple:}
+\paragraph{Exemple:}
 \begin{center}
-
-\begin{tikzpicture}
-			\begin{axis}[
-			xmax=200,
-			ymin=0,
-			ymax=1,
-			xlabel={$E$},
-			axis x line=bottom,
-			axis y line=left,
-			xscale=1.2,
-			yscale=0.5,
-			xtick=data,
-			legend entries={$f_{vieux}$,$f_{tresVieux}$},
-			legend style={at={(1,1)},anchor=south west}]
-			
-				\addplot+[mark=none,line width= 3] coordinates{(0,0)(50,0)(100,1)(200,1)};
-				\addplot+[mark=none,line width= 1,red] coordinates{(0,0)(50,0)};
-				\addplot+[domain=0:200,mark=none,line width= 1,red] {1/7500*x^2-5/15};
-				
-			\end{axis}	
-		\end{tikzpicture}
-		
+		\begin{figure}[!h]
+			\centering
+			\input{./figures/tikz/Part1_vieux_tresVieux.tex}
+			\caption{CAPTION - TODO}
+		\end{figure}
+\end{center}
+\begin{center}
 \begin{tabular}{|c|c|c|c|c|c|c|}
 \hline
 \multicolumn{6}{|c|}{VENTE} \\
