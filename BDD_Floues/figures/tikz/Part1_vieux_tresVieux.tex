@@ -12,9 +12,10 @@
 		legend entries={$f_{vieux}$,$f_{tresVieux}$},
 		legend style={at={(1,1)},anchor=south west}]
 		
-			\addplot+[mark=none,line width= 3] coordinates{(0,0)(50,0)(100,1)(200,1)};
-			\addplot+[mark=none,line width= 1,red] coordinates{(0,0)(50,0)};
-			\addplot+[domain=0:200,mark=none,line width= 1,red] {1/7500*x^2-5/15};
+			\addplot+[mark=none,line width= 4,cyan] coordinates{(0,0)(50,0)(100,1)(200,1)};
+			\addplot+[mark=none,line width= 2,red] coordinates{(0,0)(50,0)};
+			\addplot+[domain=50:100,mark=none,line width= 2,red] {1/2500*x^2-1/25*x+1};
+			\addplot+[mark=none,line width= 2,red] coordinates{(100,1)(200,1)};
 			
 	\end{axis}	
 \end{tikzpicture} 
