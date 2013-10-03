@@ -800,20 +800,19 @@ WHERE $f_{moyenSup}(C.Salaire)$
 				
 \part{NoSQL}
 	\section{Idée}			
-		Le \og{}Not Only SQL\fg{} désigne une catégorie de \textsc{SGBD} qui n'est pas fondé sur le modèle relationnel. Il est privilégié pour l'utilisation de grandes quantités de données, comme par exemple pour des sites web (Google, Amazon ...). A la différence du SQL, le NoSql n'utilise pas le système de table. Il n'y a donc pas de schémas prédéfinis
+		Le \og{}Not Only SQL\fg{} désigne une catégorie de \textsc{SGBD} qui n'est pas fondé sur le modèle relationnel. Il est privilégié pour l'utilisation de grandes quantités de données, comme par exemple pour des sites web (Google, Amazon ...). A la différence du SQL, le NoSQL n'utilise pas le système de table. Il n'y a donc pas de schémas prédéfinis
 	~\\
 
 	\section{Les Modèles}
 		\subsection{Représentation Clé/Valeur}
-		Cette représenatation est similaire à un \og{}map\fg{} en C++. Elle permet d'optimiser la gestion des BDD sous forme de tableau associatif. Les bases de données clé-valeurs sont couramment utilisées pour stocker des données de sessions par exemple. On peut notamment citer Amazon qui utilise la solution « Amazon DynamoDB » pour leur bases de données clé-valeur, qui leurs permettent de stocker les paniers des utilisateurs de leur boutique en ligne.
+		Cette représenatation est similaire à un \og{}std::map\fg{} en C++. Elle permet d'optimiser la gestion des BDD sous forme de tableau associatif. Les bases de données clé-valeurs sont couramment utilisées pour stocker des données de sessions par exemple. On peut notamment citer Amazon qui utilise la solution « Amazon DynamoDB » pour leur bases de données clé-valeur, qui leurs permettent de stocker les paniers des utilisateurs de leur boutique en ligne.
 		
-		\paragraph{Les plus}
+		\paragraph{Les plus}~\\
 
 		Un avantage des bases de données clé-valeur est qu'elles sont très faciles et rapides à réaliser. De plus elles ont le mérite d’être facilement extensibles.	De plus, les applications utilisant une persistance avec des bases de type clé-valeur ont la particularité d'avoir un code simplifié et facile à lire par rapport à des applications standards utilisant SQL. Enfin, les bases de données clé-valeurs ont de très bonnes performances et ont tendance à réduire le nombre total de requêtes effectuées sur la base puisque les seuls types de requêtes possibles sont la 
 lecture et l'écriture de données.
 		
-		\paragraph{Les moins}
-
+		\paragraph{Les moins}~\\
 
 		Du fait de l’extrême simplicité du principe des bases clé-valeur, on ne peut faire que des requêtes basées sur les clés.
 		
@@ -858,15 +857,16 @@ lecture et l'écriture de données.
 			\end{center}
 			\caption{données d’une base de données relationnelle}
 		\end{table}
-
-	~\\
-		\paragraph{Les plus}
-		Dans le cas d’une base de données colonnes, les données sont compressées le plus possible. En effet, si chaque colonne contient des données qui se ressemblent beaucoup, la compression de ces données sera très significative.
+	~
+		\paragraph{Les plus}~\\
+		
+		Dans le cas d’une base de données colonnes, les données sont compressées le plus possible. En effet, si chaque colonne contient des données qui se ressemblent beaucoup, la compression de ces données sera très significative.\\
 
 		Pour le cas d’une base de données où l’on réalise plus de lectures que d’écritures et dont on veut récupérer de gros volumes d’une donnée spécifique donnée (par exemple l’évolution d’un indicateur relevé sur un sous réseau télécom durant une période définie), il est beaucoup plus performant de 
 récupérer directement les informations de toute une colonne, plutôt que de parcourir toutes les lignes pour ne prendre que cette information, comme vu précédemment.
 
-		\paragraph{Les moins}
+		\paragraph{Les moins}~\\
+		
 		L’utilisation de bases de données colonnes n’est vraiment efficace et profitable dans le cas de grands volumes de données de mêmes types (une colonne pour chaque type), et dont les données au sens d’un type se ressemblent.
 
 		\subsection{Représentation en graphes}
@@ -879,10 +879,12 @@ récupérer directement les informations de toute une colonne, plutôt que de pa
 			\item De calculer la profondeur et la largeur d'un morceau du graphe.
 		\end{itemize}
 
-		\paragraph{Les plus}
+		\paragraph{Les plus}~\\
+		
 		Parfaitement adaptées à la gestion de données relationnelles, même lorsque ces données atteignent une taille très importante, les bases de données orientées graphe sont une solution ayant l’avantage d’être basée sur le modèle mathématique des graphes. Cela permet d’y appliquer des algorithmes déjà existants et optimisés, faisant de ce type de base une architecture relativement aisée à comprendre et à prendre en main.
 
-		\paragraph{Les moins}
+		\paragraph{Les moins}~\\
+		
 		Cependant, cette architecture est très spécifique aux graphes, et la formation n\oe{}ud/lien/propriété est très limitée, pour ne pas dire inadaptée, dans des cas plus classiques. Loin de remplacer les bases de données relationnelles, de même que d’autres types de bases NoSQL, les bases orientées graphe ne sont donc qu’une solution particulière à une forme particulière de BigData, et non une solution \og{}miracle\fg{} pouvant répondre à tous les besoins de ce domaine.
 
 \part{Rappel: Algèbre Relationnel}
