@@ -19,6 +19,7 @@
 \usepackage{tikz}
 \usepackage{pgfplots}
 \usepackage{tikz-3dplot}
+\usepackage{latexsym}
 
 \usepackage{color}
 \usepackage{verbatim}
@@ -80,7 +81,7 @@ captionpos=b,%
 	\tableofcontents
 
 \section*{Prélude}
-Cours présenté par Stéphane \textsc{Loiseau}, Enseignant-Chercheur au LERIA \emph{(Laboratoire En Recherche Informatique d'Angers)}.\\
+Cours présenté par Stéphane \textsc{Loiseau}, Enseignant-Chercheur au LERIA \emph{(Laboratoire d’Étude et de Recherche en Informatique d'Angers)}.\\
 
 Contact:
 	\begin{itemize}
@@ -183,16 +184,17 @@ où $\approx$ est un opérateur de jointure flou fournit par $f \approx (a,b)$
 Utiliser un opérateur qui permettent de moduler des prédicats. Ex: très, peu...
 \subsection{Définition}
 Un \textbf{modificateur linguistique} $m$ est une fonction qui associe à tout sous ensemble flou A de E, un sous ensemble flou $m(A)$ de E par l'intermédiaire d'une fonction $t_m$ tel que:
-$\forall x \in E,f_{m(A)}(X)=t_m(f_A(X)) $
+$\forall x \in E,f_{m(A)}(x)=t_m(f_A(x)) $
 
 \paragraph{Exemple:}
 \begin{center}
 		\begin{figure}[!h]
 			\centering
 			\input{./figures/tikz/Part1_vieux_tresVieux.tex}
-			\caption{CAPTION - TODO}
-		\end{figure}
+			\caption{}{On a defini  $f_{vieux}$ et $tres(x)=x^2$. Cela nous permet d'utiliser le moderateur linguistique $ tres$ sur $f_{vieux}$. On a donc $f_{tresVieux}(x)=tres(f_{vieux}(x))=f_{vieux}^2(x)$}
+		\end{figure}				
 \end{center}
+\emph{\textbf{Remarque : }Il s'agit bien de $f^2(x)$ et non pas $f(x^2)$.}
 \begin{center}
 \begin{tabular}{|c|c|c|c|c|c|c|}
 	\hline
@@ -219,7 +221,7 @@ SELECT
 FROM Vente
 WHERE tresVieux(Age)
 
-SELECt
+SELECT
 FROM Vente
 WHERE tresCher(Prix)
 
@@ -257,7 +259,7 @@ La sémantique de "tres" ou "peu" peut-être différente en fonction des mots ch
 \end{itemize}
 
 
-\section{A.Stockage des données imprécises}
+\section{Stockage des données imprécises}
 \begin{itemize}
 \item Une colonne contient:
 \begin{itemize}
@@ -310,7 +312,7 @@ La sémantique de "tres" ou "peu" peut-être différente en fonction des mots ch
 \end{tabular} 
 \end{center}
 
-\section{B.Le problème}
+\section{Le problème}
 
 \begin{enumerate}
 \item FQUERY : \\
@@ -353,7 +355,7 @@ La sémantique de "tres" ou "peu" peut-être différente en fonction des mots ch
 \end{tabular} 
 \end{center}
 
-\section{C.Les requêtes}
+\section{Les requêtes}
 \subsection{Problème}
 
 Ayant un ensemble flou $ A $ (décrivant un prédicat: $PrixEleve$), et un ensemble flou $ A' $   (décrivant une donnée: $Prix$), on vaut mesurer la confiance en  $ A' $ est un $ A $ (le prix est un prix élevé: $PrixEleve(Prix)$)
@@ -868,7 +870,7 @@ récupérer directement les informations de toute une colonne, plutôt que de pa
 		L’utilisation de bases de données colonnes n’est vraiment efficace et profitable dans le cas de grands volumes de données de mêmes types (une colonne pour chaque type), et dont les données au sens d’un type se ressemblent.
 
 		\subsection{Représentation en graphes}
-		Elle est basé sur les graphes en mathématiques. Une base de données orientée graphe stocke donc des données sur chaque n\oe{}ud, et ces nœuds eux-mêmes sont organisés par des relations. Il est ensuite possible d'effectuer des opérations particulières à des graphes sans avoir besoin de passer par des jointures et des requête très complexes et lourdes. Ces opérations comprennent par exemple :\\
+		Elle est basée sur les graphes en mathématiques. Une base de données orientée graphe stocke donc des données sur chaque n\oe{}ud, et ces nœuds eux-mêmes sont organisés par des relations. Il est ensuite possible d'effectuer des opérations particulières à des graphes sans avoir besoin de passer par des jointures et des requête très complexes et lourdes. Ces opérations comprennent par exemple :\\
 
 		\begin{itemize}
 			\item De parcourir le graphe à partir d'un n\oe{}ud, sur une profondeur donnée,
@@ -882,4 +884,22 @@ récupérer directement les informations de toute une colonne, plutôt que de pa
 
 		\paragraph{Les moins}
 		Cependant, cette architecture est très spécifique aux graphes, et la formation n\oe{}ud/lien/propriété est très limitée, pour ne pas dire inadaptée, dans des cas plus classiques. Loin de remplacer les bases de données relationnelles, de même que d’autres types de bases NoSQL, les bases orientées graphe ne sont donc qu’une solution particulière à une forme particulière de BigData, et non une solution \og{}miracle\fg{} pouvant répondre à tous les besoins de ce domaine.
+
+\part{Rappel Algèbre Relationnel}
+	\section{Opérateurs}
+		\subsection{Opérateurs de base}
+		\begin{itemize}
+			\item Sélection $\sigma$
+			\item Projection $\pi$
+			\item Produit cartésien $\chi$
+			\item Différence $-$
+			\item Union $\cup$
+		\end{itemize}
+		
+		\subsection{Autres opérateurs}
+		\begin{itemize}
+			\item Intersection $\cap$
+			\item Jointure $\Join$
+			\item Division $/$
+		\end{itemize}
 \end{document}

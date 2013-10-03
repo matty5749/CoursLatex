@@ -19,6 +19,7 @@
 \usepackage{tikz}
 \usepackage{pgfplots}
 \usepackage{tikz-3dplot}
+\usepackage{latexsym}
 
 \usepackage{color}
 \usepackage{verbatim}
@@ -869,7 +870,7 @@ récupérer directement les informations de toute une colonne, plutôt que de pa
 		L’utilisation de bases de données colonnes n’est vraiment efficace et profitable dans le cas de grands volumes de données de mêmes types (une colonne pour chaque type), et dont les données au sens d’un type se ressemblent.
 
 		\subsection{Représentation en graphes}
-		Elle est basé sur les graphes en mathématiques. Une base de données orientée graphe stocke donc des données sur chaque n\oe{}ud, et ces nœuds eux-mêmes sont organisés par des relations. Il est ensuite possible d'effectuer des opérations particulières à des graphes sans avoir besoin de passer par des jointures et des requête très complexes et lourdes. Ces opérations comprennent par exemple :\\
+		Elle est basée sur les graphes en mathématiques. Une base de données orientée graphe stocke donc des données sur chaque n\oe{}ud, et ces nœuds eux-mêmes sont organisés par des relations. Il est ensuite possible d'effectuer des opérations particulières à des graphes sans avoir besoin de passer par des jointures et des requête très complexes et lourdes. Ces opérations comprennent par exemple :\\
 
 		\begin{itemize}
 			\item De parcourir le graphe à partir d'un n\oe{}ud, sur une profondeur donnée,
@@ -883,4 +884,22 @@ récupérer directement les informations de toute une colonne, plutôt que de pa
 
 		\paragraph{Les moins}
 		Cependant, cette architecture est très spécifique aux graphes, et la formation n\oe{}ud/lien/propriété est très limitée, pour ne pas dire inadaptée, dans des cas plus classiques. Loin de remplacer les bases de données relationnelles, de même que d’autres types de bases NoSQL, les bases orientées graphe ne sont donc qu’une solution particulière à une forme particulière de BigData, et non une solution \og{}miracle\fg{} pouvant répondre à tous les besoins de ce domaine.
+
+\part{Rappel Algèbre Relationnel}
+	\section{Opérateurs}
+		\subsection{Opérateurs de base}
+		\begin{itemize}
+			\item Sélection $\sigma$
+			\item Projection $\pi$
+			\item Produit cartésien $\chi$
+			\item Différence $-$
+			\item Union $\cup$
+		\end{itemize}
+		
+		\subsection{Autres opérateurs}
+		\begin{itemize}
+			\item Intersection $\cap$
+			\item Jointure $\Join$
+			\item Division $/$
+		\end{itemize}
 \end{document}
