@@ -418,8 +418,8 @@ WHERE condition
 \subsubsection{Exercice 1}
 \paragraph{1) Relations floues} ~\\
 	\begin{itemize}
-	\item $f_{J\&K}(x)=min(f_J(x),f_K(x))$
-	\item $f_{J\|K}(x)=max(f_J(x),f_K(x))$
+	\item $f_{J\land K}(x)=min(f_J(x),f_K(x))$
+	\item $f_{J\lor K}(x)=max(f_J(x),f_K(x))$
 	\end{itemize}
 
 \paragraph{2) Théorie des possibilités} ~\\
@@ -918,4 +918,13 @@ récupérer directement les informations de toute une colonne, plutôt que de pa
 			\item Jointure $\Join$
 			\item Division $/$
 		\end{itemize}
+		
+	\section{Quelques exemples}
+		\begin{lstlisting}
+SELECT A.Salle, L.Adresse
+FROM APPARTIENT A NATURAL JOIN LOCALISATION L
+WHERE A.Salle = A.Proprietaire
+		\end{lstlisting}
+		
+		$$\rightarrow \Pi_{Salle,Adresse}(\sigma_{Salle=Proprietaire}(APPARTIENT) \Join LOCALISATION) $$
 \end{document}
