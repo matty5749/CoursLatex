@@ -4,3 +4,6 @@
 *.log
 *.out
 *.toc
+*.swp
+*~
+.DS_Store 
