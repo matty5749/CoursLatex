@@ -10,7 +10,7 @@
 \usepackage[babel]{csquotes}
 \MakeAutoQuote{«}{»}
 
-\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+\usepackage[top=2cm, bottom=2cm, left=1.5cm, right=1.5cm]{geometry}
 
 \usepackage{url}
 \usepackage{wrapfig}
@@ -88,7 +88,7 @@ Contact:
 		\item[] \url{stephane.loiseau@univ-angers.fr} 
 	\end{itemize}
 
-\newpage
+%\newpage
 \part{Base de données Floues, données précises, FQUERY}
 
 \paragraph {Rappel}
@@ -170,7 +170,7 @@ avec $\sum_{i=1}^{n} w_i=1$ et $\forall i,f_{A_i}(x)\geq f_{A_{i+1}}(x)$
 	\item si $w_i=\frac{1}{n}$ alors moyenne arithmétique
 \end{itemize}
 
-\subsubsection{Projection distincte floue}
+\subsection{Projection distincte floue}
 \begin{lstlisting}[mathescape]
 SELECT DISTINCT A
 FROM T
@@ -264,7 +264,7 @@ La sémantique de \og{}très\fg{} ou \og{}peu\fg{} peut-être différente en fon
 
 \end{enumerate}
 
-\subsection{Idées de base}
+\paragraph{Idées de base}
 \begin{itemize}
 	\item les données imprécises sont stockées dans des tables classiques
 	\item requêtes peuvent utiliser des prédicats flou à définir
@@ -614,6 +614,7 @@ FROM Cadre C
 WHERE $f_{moyenSup}(C.Salaire)$
 \end{lstlisting}
 
+\newpage
 \part{Data Ware House}
 \section{Entrepot de données}
 \subsection{Le problème}
@@ -730,6 +731,8 @@ WHERE $f_{moyenSup}(C.Salaire)$
 			
 		\end{tikzpicture}
 		\end{center}
+		~\\~\\
+		
 		Et on peut en sortir des vues telles que:\\
 		
 		Vue \textbf{F2}\\
@@ -812,6 +815,7 @@ WHERE $f_{moyenSup}(C.Salaire)$
 		
 		Le DataWare House est un domaine qui est en train de monté, avec une interface (le cube de données) qui devient un standard.
 				
+\newpage
 \part{NoSQL}
 	\section{Idée}			
 		Le \og{}Not Only SQL\fg{} désigne une catégorie de \textsc{SGBD} qui n'est pas fondé sur le modèle relationnel. Il est privilégié pour l'utilisation de grandes quantités de données, comme par exemple pour des sites web (Google, Amazon ...). A la différence du SQL, le NoSQL n'utilise pas le système de table. Il n'y a donc pas de schémas prédéfinis
@@ -871,7 +875,6 @@ lecture et l'écriture de données.
 			\end{center}
 			\caption{données d’une base de données relationnelle}
 		\end{table}
-	~
 		\paragraph{Les plus}~\\
 		
 		Dans le cas d’une base de données colonnes, les données sont compressées le plus possible. En effet, si chaque colonne contient des données qui se ressemblent beaucoup, la compression de ces données sera très significative.\\
@@ -927,4 +930,5 @@ WHERE A.Salle = A.Proprietaire
 		\end{lstlisting}
 		
 		$$\rightarrow \Pi_{Salle,Adresse}(\sigma_{Salle=Proprietaire}(APPARTIENT) \Join LOCALISATION) $$
+		
 \end{document}
