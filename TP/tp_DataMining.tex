@@ -90,9 +90,9 @@ captionpos=b%
 		\item \texttt{total} \emph{(entier continu)} représente le total des suites de caractères en lettre capitale dans l'e-mail
 	\end{itemize}
 	~
-	
-	
 \end{enumerate}
+
+	On remarque que les valeurs du jeu de données sont des pourcentages pour tout ce qui concerne les fréquences et ce n'est pas le nombre de fréquences d'un mot ou caractère.
 
 \paragraph{Question 2.} ~\\
   \begin{figure}[!h]
@@ -158,10 +158,15 @@ Plus le jeu d'exemples est petit, plus la variation des paramètres du classifie
 % Quelle est la forme du réseau construit ?
 
 \paragraph{Question 4.}
-    Pour appliquer l'algorithme \texttt{APriori}, il est nécessaire d'appliquer le filtre non supervisé \texttt{Discretize} sur les attributs. \\
+    Pour appliquer l'algorithme \texttt{APriori}, il est nécessaire d'appliquer le filtre non supervisé \texttt{NumericToBinary} sur les attributs. \\
     
-    Le principe de discrétisation consiste à remplacer des relations portant sur des fonctions continues, dérivables ou autres, par un nombre fini de relations algébriques portant sur les valeurs prises par ces fonctions en un nombre fini de points de leur ensemble de définition.\\
-    
+    L’algorithme transforme les valeurs numériques : 
+    \begin{itemize}
+	\item si la valeur de l'attribut numérique est exactement zéro, la valeur du nouvel attribut sera zéro,
+	\item si la valeur de l'attribut numérique est absent, la valeur du nouvel attribut sera absent,
+	\item sinon, la valeur du nouvel attribut sera un.\\
+	\end{itemize}
+	
     Pour la réalisation du traitement, l'onglet \og{}Associate\fg{} permet de sélectionner  l'algorithme APrioiri, de le configurer et de l'exécuter.
 
 \paragraph{Question 5.}
