@@ -10,7 +10,7 @@
 \usepackage[babel]{csquotes}
 \MakeAutoQuote{«}{»}
 
-\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+\usepackage[top=2cm, bottom=2cm, left=1.5cm, right=1.5cm]{geometry}
 
 \usepackage{url}
 \usepackage{wrapfig}
@@ -88,10 +88,10 @@ Contact:
 		\item[] \url{stephane.loiseau@univ-angers.fr} 
 	\end{itemize}
 
-\newpage
+%\newpage
 \part{Base de données Floues, données précises, FQUERY}
 
-\subsection*{Rappel}
+\paragraph {Rappel}
 En logique classique, un \textbf{prédicat} est un terme (une expression) évalué à vrai ou faux.
 
 \section{Prédicats floues}
@@ -110,25 +110,26 @@ Un \textbf{sous ensemble flou} $A$ de $E$ est défini par une fonction d'apparte
 		\begin{figure}[!h]
 			\centering
 			\input{./figures/tikz/Part1_etreGrand.tex}
-			\caption{CAPTION - TODO}
+			\caption{Représentation du prédicat \texttt{etreGrand}}
 		\end{figure}
 		
 		\begin{figure}[!h]
 			\centering
 			\input{./figures/tikz/Part1_animal.tex}
-			\caption{CAPTION - TODO}
+			\caption{Représentation du prédicat \texttt{animal}}
 		\end{figure}
+		~
 		
 \subsection{Définitions}
 
-Le \textbf{support} du sous ensemble $A$ de $E$ est: \begin{center} \fbox{$support(A)=\{x \in E | f_A(x)<>0 \}$} \end{center}
+Le \textbf{support} du sous ensemble $A$ de $E$ est l'ensemble des éléments de E qui ont un degré différent de 0, on l'exprime de la manière suivante: \begin{center} \fbox{$support(A)=\{x \in E | f_A(x)<>0 \}$} \end{center}
 
-La \textbf{hauteur} du sous ensemble $A$ de $E$ est: \begin{center} \fbox{$hauteur(A)=sup_{x \in E} f_A(x)$} \end{center}
+La \textbf{hauteur} du sous ensemble $A$ de $E$ est le meilleur degré $\in [0,1]$, on l'exprime de la manière suivante : \begin{center} \fbox{$hauteur(A)=sup_{x \in E} f_A(x)$} \end{center}
 
-Le \textbf{noyau} du sous ensemble $A$ de $E$ est: \begin{center} \fbox{$noyau(A)=\{x \in E | f_A(x)=1 \}$} \end{center}
+Le \textbf{noyau} du sous ensemble $A$ de $E$ est l'ensemble des éléments de E qui ont un degré égal à 1, on l'exprime de la manière suivante: \begin{center} \fbox{$noyau(A)=\{x \in E | f_A(x)=1 \}$} \end{center}
 
 \section{Relations floues}
-Une \textbf{requete floue(FQUERY)} est une requete exprimée en SQL, dont la partie condition est étendue pour traiter les prédicats flous définis:\\
+Une \textbf{requete floue (FQUERY)} est une requête exprimée en SQL, dont la partie condition est étendue pour traiter les prédicats flous définis:\\
 
 \begin{lstlisting}[mathescape]
 SELECT $A_1$...$A_n$
@@ -137,28 +138,28 @@ WHERE conditions
 \end{lstlisting}
 ~
 
-Le \textbf{résultat d'une requête floue} est une \textbf{relation flou} BD, c'est une relation résultat pour lequel chaque tuple a un degré d'appartenance dans $[0;1]$, décrivant le succès de la requête.
+Le \textbf{résultat d'une requête floue} est une \textbf{relation floue} BD, c'est une relation résultat pour lequel chaque tuple a un degré d'appartenance dans $[0;1]$, décrivant le succès de la requête.
 
 \section{Opérateurs}
 La \textbf{sélection floue} consiste à appliquer un prédicat flou construit par l’utilisation de l'opérateur unaire (NOT) et/ou des opérateurs binaires (AND/OR) sur les prédicats flous donnés.\\
 
 Il faut définir:
 \begin{itemize}
-	\item$f_{!A}(x)$	
-	\item$f_{A\&B}(x)$
-	\item$f_{A\|B}(x)$
+	\item$f_{\lnot A}(x)$	
+	\item$f_{A\land B}(x)$
+	\item$f_{A\lor B}(x)$
 \end{itemize} 
 ~
 
-La \textbf{négation} d'un sous ensemble flou (appelé \textbf{complément} en logique flou)$A$ de $E$ est défini par: \begin{center} \fbox{$f_{!A}(x)=1-f_A(x)$} \end{center}
+La \textbf{négation} d'un sous ensemble flou (appelé \textbf{complément} en logique flou) $A$ de $E$ est défini par: \begin{center} \fbox{$f_{\lnot A}(x)=1-f_A(x)$} \end{center}
 
-La \textbf{disjonction} (union) de 2 sous ensembles flou $A,B$ de $E$ est défini par: \begin{center} \fbox{$f_{A\|B}(x)=max(f_A(x),f_B(X))$} \end{center}
+La \textbf{disjonction} (union) de 2 sous ensembles flou $A,B$ de $E$ est défini par: \begin{center} \fbox{$f_{A\lor B}(x)=max(f_A(x),f_B(X))$} \end{center}
 
-La \textbf{conjonction} (intersection) de 2 sous ensembles flou $A,B$ de $E$ est défini par: \begin{center} \fbox{$f_{A\&B}(x)=min(f_A(x),f_B(X))$} \end{center}
+La \textbf{conjonction} (intersection) de 2 sous ensembles flou $A,B$ de $E$ est défini par: \begin{center} \fbox{$f_{A\land B}(x)=min(f_A(x),f_B(X))$} \end{center}
 
 \paragraph{\emph{Remarque:}}
-Pour palier à la rigidité de $f_{A\&B}(x)$, on peut utiliser OWA(Ordered Weighted Averaging). Mais cette possibilité ne fait pas partie de la BDD floue:
-$$ F_{A_1\&...\&A_i\&...\&A_n}(x)=w_1f_{A_1}(x)+...+w_if_{A_i}(x)+...+w_nf_{A_n}(x)$$
+Pour palier à la rigidité de $f_{A\land B}(x)$, on peut utiliser OWA (Ordered Weighted Averaging). Mais cette possibilité ne fait pas partie de la BDD floue:
+$$ F_{A_1\land...\land A_i\land ...\land A_n}(x)=w_1f_{A_1}(x)+...+w_if_{A_i}(x)+...+w_nf_{A_n}(x)$$
 \\
 
 avec $\sum_{i=1}^{n} w_i=1$ et $\forall i,f_{A_i}(x)\geq f_{A_{i+1}}(x)$
@@ -169,6 +170,17 @@ avec $\sum_{i=1}^{n} w_i=1$ et $\forall i,f_{A_i}(x)\geq f_{A_{i+1}}(x)$
 	\item si $w_i=\frac{1}{n}$ alors moyenne arithmétique
 \end{itemize}
 
+\subsection{Projection distincte floue}
+\begin{lstlisting}[mathescape]
+SELECT DISTINCT A
+FROM T
+WHERE conditions
+\end{lstlisting}
+~
+
+\fbox{$ f(a)=sup_{x \in T \land x.A=a}(f_{cond}(x)) $} avec $x.A$ la projection du tuple $x$ sur la colonne $A$. \\
+
+\emph{\textbf{Remarque:} Avec le mot-clé DISTINCT, en cas de valeurs identique, on ramène le meilleur résultat.}\\
 
 \subsection{Jointure floue}
  
@@ -177,7 +189,7 @@ SELECT R,S
 FROM R,S
 WHERE RC $\approx$ S.D
 \end{lstlisting}
-où $\approx$ est un opérateur de jointure flou fournit par $f \approx (a,b)$ 
+où $\approx$ est un opérateur de jointure flou fournit par $f \approx (a,b)$ \\
 
 
 \section{Modificateurs}
@@ -229,7 +241,7 @@ WHERE tresCher(Prix)
 \end{lstlisting}
 
 \subsection{Limitation de la méthode}
-La sémantique de "tres" ou "peu" peut-être différente en fonction des mots choisi, or la définition de "très" est générique.
+La sémantique de \og{}très\fg{} ou \og{}peu\fg{} peut-être différente en fonction des mots choisi, or la définition de \og{}très\fg{} est générique.
 
 \part{Base de données Floues, données imprécises, FSQL}
 
@@ -237,8 +249,8 @@ La sémantique de "tres" ou "peu" peut-être différente en fonction des mots ch
 \item FQUERY (sous ensemble flou) : \\
 	\begin{itemize}
 	\item des données \textbf{précises}
-	\item des systemes relationnels
-	\item permet des requetes floues\\
+	\item des systèmes relationnels
+	\item permet des requêtes floues\\
 	$\longrightarrow$ \textbf{les résultats avec degré (d'appartenance)}
 \end{itemize}
 
@@ -252,7 +264,7 @@ La sémantique de "tres" ou "peu" peut-être différente en fonction des mots ch
 
 \end{enumerate}
 
-\subsection{Idées de base}
+\paragraph{Idées de base}
 \begin{itemize}
 	\item les données imprécises sont stockées dans des tables classiques
 	\item requêtes peuvent utiliser des prédicats flou à définir
@@ -267,12 +279,12 @@ La sémantique de "tres" ou "peu" peut-être différente en fonction des mots ch
 \item \textbf{soit une valeur classique}
 \item \textbf{soit une valeur floue numérique}
 \end{itemize}
-\item Le codage d'une valeur floue numérique se fait sous forme d'un trapèze, en fournissant les quatres valeurs remarquables sur l'abscisse
+\item Le codage d'une valeur floue numérique se fait sous forme d'un trapèze, en fournissant les quatre valeurs remarquables sur l'abscisse
 \begin{itemize}
 \item La table trapèze contient une clef associée à un trapèze sur un ensemble de données
 \item Une référence au trapèze correspondant est stocké dans la table
 \end{itemize}
-\item Le codage d'un prédicat flou se fait suivant la meme technique qu'une valeur floue
+\item Le codage d'un prédicat flou se fait suivant la même technique qu'une valeur floue
 \end{itemize}
 
 \textbf{Exemple:}
@@ -316,7 +328,7 @@ La sémantique de "tres" ou "peu" peut-être différente en fonction des mots ch
 \section{Le problème}
 
 \begin{enumerate}
-\item FQUERY : \\
+\item FQUERY:
 	\begin{itemize}
 	\item prédicat flou: sous ensemble flou $f(x)$
 	\item une donnée \textbf{précise} $a$
@@ -326,8 +338,9 @@ La sémantique de "tres" ou "peu" peut-être différente en fonction des mots ch
 		\item Pour la requête: des combinaisons de ces degrés
 	\end{itemize}		
 \end{itemize}
+~
 
-\item FSQL : \\
+\item FSQL:
 	\begin{itemize}
 	\item prédicat flou: sous ensemble flou $f_A(x)$
 	\item une donnée \textbf{imprécise}: un sous ensemble flou $f_{A'}(y)$
@@ -363,10 +376,10 @@ Ayant un ensemble flou $ A $ (décrivant un prédicat: $PrixEleve$), et un ensem
 
 \subsection{Solution : La théorie des possibilités}
 \begin{itemize}
-\item La mesure de possibilité (Optimisme)\\
-$ ps(X est A / Xest A')=sup\{min(f_A(x),f_{A'}(x)) / x \in E\} $
-\item la mesure de nécessité (Pessimisme)\\
-$ nc(X est A / X est A')=inf \{max(1-f_{A'}(x), f_A(x)) / x \in E\} $
+\item la mesure de \textbf{Possibilité} \emph{(Optimisme)}\\
+$$ ps(X est A / Xest A')=sup\{min(f_A(x),f_{A'}(x)) | x \in E\} $$
+\item la mesure de \textbf{Nécessité} \emph{(Pessimisme)}\\
+$$ nc(X est A / X est A')=inf \{max(1-f_{A'}(x), f_A(x)) | x \in E\} $$
 \end{itemize}
 ~
 
@@ -405,8 +418,8 @@ WHERE condition
 \subsubsection{Exercice 1}
 \paragraph{1) Relations floues} ~\\
 	\begin{itemize}
-	\item $f_{J\&K}(x)=min(f_J(x),f_K(x))$
-	\item $f_{J\|K}(x)=max(f_J(x),f_K(x))$
+	\item $f_{J\land K}(x)=min(f_J(x),f_K(x))$
+	\item $f_{J\lor K}(x)=max(f_J(x),f_K(x))$
 	\end{itemize}
 
 \paragraph{2) Théorie des possibilités} ~\\
@@ -601,6 +614,7 @@ FROM Cadre C
 WHERE $f_{moyenSup}(C.Salaire)$
 \end{lstlisting}
 
+\newpage
 \part{Data Ware House}
 \section{Entrepot de données}
 \subsection{Le problème}
@@ -717,6 +731,8 @@ WHERE $f_{moyenSup}(C.Salaire)$
 			
 		\end{tikzpicture}
 		\end{center}
+		~\\~\\
+		
 		Et on peut en sortir des vues telles que:\\
 		
 		Vue \textbf{F2}\\
@@ -799,6 +815,7 @@ WHERE $f_{moyenSup}(C.Salaire)$
 		
 		Le DataWare House est un domaine qui est en train de monté, avec une interface (le cube de données) qui devient un standard.
 				
+\newpage
 \part{NoSQL}
 	\section{Idée}			
 		Le \og{}Not Only SQL\fg{} désigne une catégorie de \textsc{SGBD} qui n'est pas fondé sur le modèle relationnel. Il est privilégié pour l'utilisation de grandes quantités de données, comme par exemple pour des sites web (Google, Amazon ...). A la différence du SQL, le NoSQL n'utilise pas le système de table. Il n'y a donc pas de schémas prédéfinis
@@ -858,7 +875,6 @@ lecture et l'écriture de données.
 			\end{center}
 			\caption{données d’une base de données relationnelle}
 		\end{table}
-	~
 		\paragraph{Les plus}~\\
 		
 		Dans le cas d’une base de données colonnes, les données sont compressées le plus possible. En effet, si chaque colonne contient des données qui se ressemblent beaucoup, la compression de ces données sera très significative.\\
@@ -905,4 +921,14 @@ récupérer directement les informations de toute une colonne, plutôt que de pa
 			\item Jointure $\Join$
 			\item Division $/$
 		\end{itemize}
+		
+	\section{Quelques exemples}
+		\begin{lstlisting}
+SELECT A.Salle, L.Adresse
+FROM APPARTIENT A NATURAL JOIN LOCALISATION L
+WHERE A.Salle = A.Proprietaire
+		\end{lstlisting}
+		
+		$$\rightarrow \Pi_{Salle,Adresse}(\sigma_{Salle=Proprietaire}(APPARTIENT) \Join LOCALISATION) $$
+		
 \end{document}
