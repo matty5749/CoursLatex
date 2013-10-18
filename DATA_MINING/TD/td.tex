@@ -1,0 +1,168 @@
+\documentclass[a4paper,11pt]{article}
+
+\usepackage[frenchb]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage[bookmarks=true,colorlinks,linkcolor=blue]{hyperref}
+
+
+\usepackage[babel]{csquotes}
+\MakeAutoQuote{«}{»}
+
+\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+
+\usepackage{url}
+\usepackage{wrapfig}
+\usepackage{tabularx}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{pgfplots}
+%\usepackage{tikz-3dplot}
+\usepackage{latexsym}
+
+\usepackage{color}
+\usepackage{verbatim}
+\usepackage{listings}
+\usepackage{fancyhdr}
+\usepackage{subfig}
+
+\definecolor{colKeys}{rgb}{0,0,1} 
+\definecolor{colIdentifier}{rgb}{0,0,0} 
+\definecolor{colComments}{rgb}{0,0.5,1} 
+\definecolor{colString}{rgb}{0.6,0.1,0.1} 
+
+\lstset{%configuration de listings 
+float=hbp,% 
+basicstyle=\ttfamily\small, % 
+identifierstyle=\color{colIdentifier}, % 
+keywordstyle=\color{colKeys}, % 
+stringstyle=\color{colString}, % 
+commentstyle=\color{colComments}, % 
+columns=flexible, % 
+tabsize=2, % 
+frame=l, % 
+frameround=tttt, % 
+extendedchars=true, % 
+showspaces=false, % 
+showstringspaces=false, % 
+%numbers=left, % 
+numberstyle=\tiny, % 
+breaklines=true, % 
+breakautoindent=true, % 
+captionpos=b,%
+} 
+\usetikzlibrary{positioning}
+
+\lstset{language=SQL} 
+\lstset{commentstyle=\textit} 
+
+% Matière - Formation Lieu 
+% Cours/TP/TD - Titre
+% Auteur
+% Date
+\title{M2 ID - DATA MINING \\ \normalsize (TD)}
+\author{Jean-Mathieu \textsc{Chantrein}}
+
+\date{\today}
+
+\begin{document}
+
+%En-tête
+	\lhead{J-M. \textsc{Chantrein}}
+	\rhead{DATA MINING \\ \emph{TD} - M2ID S1 - 2013}
+	\renewcommand{\headrulewidth}{0.001pt}
+	
+	\pagestyle{fancy}
+	\fancypagestyle{plain}
+	
+	\maketitle
+
+	%\tableofcontents
+
+\section{Partie A}
+\subsection{FAUX}
+Lorsque un modèle est trop compliqué, le modèle ne s'ajuste pas aux données et peut donc créer d'avantage d'erreurs qu'un modèle moins compliqué.On dit que le modèle est sur-ajusté aux jeux d'apprentissage.
+
+\subsection{VRAI}
+La classification supervisé consiste à construire un modèle de décision par rapport à une classe.
+
+\subsection{FAUX}
+Elle peut être calculé pour tout modèle superviser.Elle représente comment évolue le taux de vrai positif en fonction des faux positifs.
+
+\section{Partie B}
+Le nettoyage consiste à se séparer des valeurs erronés, manquantes ou des attributs constant.\\
+Le recodage consiste à transformer des attributs, par exemple, des attributs numérique en attributs booléen.Ceci afin de pouvoir:
+\begin{itemize}
+\item appliquer certaines méthodes
+\item obtenir un modèle de meilleure qualité
+\end{itemize} Afin de mieux exploiter les informations que l'on souhaite obtenir de notre BDD.
+
+\section{Partie C : Règles d'association}
+Un ensemble est fréquent uniquement si \textbf{tout} ses sous ensembles sont fréquents.
+
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline 
+Ensemble a analyser & Ensemble fréquent taille 4 ? \\ 
+\hline 
+ABEF & Non car BEF $\notin$ L3 \\ 
+\hline 
+ABEG & Oui car AEG et BEG$\in$ L3 \\ 
+\hline 
+ABFG & Non car AFG $\notin$ L3 \\ 
+\hline 
+ACDE & Non car ADE  $\notin$ L3 \\ 
+\hline 
+ACDG & Non car ADG $\notin$ L3 \\ 
+\hline 
+ACEG & Oui car AEG et CEG $\in$ L3 \\ 
+\hline 
+AEFG & Non car AFG $\notin$ L3 \\ 
+\hline 
+BCDE & Non car BDE $\notin$ L3 \\ 
+\hline 
+BCDG & Non car BDG $\notin$ L3 \\ 
+\hline 
+BCEG & Oui car BEG et CEG $\in$ L3 \\ 
+\hline 
+... &  \\ 
+\hline 
+\end{tabular} 
+\end{center}
+
+
+Faire tourner \emph{APriori} sur chaque sous bases disjointe.
+
+$
+\\
+|X|_1 \leq Supmin * |DB_1|\\
+|X|_2 \leq Supmin * |DB_2|\\
+...\\
+|X|_n \leq Supmin * |DB_n|\\
+.............................................\\
+|X|_{DB} \leq Supmin * \sum_{i=1}^{n}(|DB_i|)\\
+|X|_{DB} \leq Supmin * |DB|
+$
+
+\section{Partie D: Réseaux de neurones}
+1)Il y a 2 neurones dans la couche de sortie car il y a deux classes.
+2) (20+1)*4+(4+1)*2=94 poids
+3)On peut contrôler l’arrêt de entraînement afin d'éviter le sur apprentissage en attribuant un ensemble de validation qui aura pour but de prévenir le sur apprentissage
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
