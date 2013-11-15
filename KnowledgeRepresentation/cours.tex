@@ -1,0 +1,297 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage[frenchb]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage[bookmarks=true,colorlinks,linkcolor=blue]{hyperref}
+\usepackage[final]{pdfpages}
+\usepackage[babel]{csquotes}
+\usepackage{amssymb}
+\MakeAutoQuote{«}{»}
+
+\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+
+\usepackage{url}
+\usepackage{wrapfig}
+\usepackage{tabularx}
+\usepackage{graphicx}
+
+\usepackage{xcolor}
+\usepackage{verbatim}
+\usepackage{listings}
+\usepackage{fancyhdr}
+\usepackage{subfig}
+\usepackage[toc,page]{appendix} 
+\definecolor{colKeys}{rgb}{0,0,1} 
+\definecolor{colIdentifier}{rgb}{0,0,0} 
+\definecolor{colComments}{rgb}{0,0.5,1} 
+\definecolor{colString}{rgb}{0.6,0.1,0.1} 
+
+\lstset{%configuration de listings 
+	float=hbp,% 
+	basicstyle=\ttfamily\small, % 
+	identifierstyle=\color{colIdentifier}, % 
+	keywordstyle=\color{colKeys}, % 
+	stringstyle=\color{colString}, % 
+	commentstyle=\color{colComments}, % 
+	columns=flexible, % 
+	tabsize=2, % 
+	frame=L, % 
+	frameround=tttt, % 
+	extendedchars=true, % 
+	showspaces=false, % 
+	showstringspaces=false, % 
+	numbers=left, % 
+	numberstyle=\tiny, % 
+	breaklines=true, % 
+	breakautoindent=true, % 
+	captionpos=b,%
+} 
+
+
+\lstset{language=c++} 
+\lstset{commentstyle=\textit} 
+\renewcommand{\appendixtocname}{Annexes} 
+\renewcommand{\appendixpagename}{Annexes}
+
+\title{M2 ID \\ \texttt{Cours -- Knowledge Representation}}
+\author{David \textsc{Guinehut}}
+\date{\today}
+
+\begin{document}
+
+%En-tête
+	\lhead{David \textsc{Guinehut}}
+	\rhead{Knowledge Representation \emph{Cours} - M2ID - 2013/14}
+	\renewcommand{\headrulewidth}{0.001pt}
+
+	
+	\pagestyle{fancy}
+	\fancypagestyle{plain}
+	
+	\maketitle
+
+	\tableofcontents
+
+	% 
+	\section*{Prélude}
+	Cours de Représentation des connaissances et (formalisation du) raisonnement (Knowledge Representation)
+	
+	\part{Introduction}
+	\section{Présentation générale}
+	\subsection{Définitions de l'Intelligence Artificielle}
+	L'intelligence artificielle  est la \og{}recherche de moyens susceptibles de doter les systèmes informatiques de capacités intellectuelles comparables à celles des êtres humains\fg{}\footnote{Wikipedia, article des années 80}.\\
+	
+	L'IA a des liens avec les domaines suivants:
+	\begin{itemize}
+		\item \textbf{Informatique}
+		\item \textbf{Mathématiques}
+		\item Linguistique
+		\item Sciences Cognitives
+		\item Robotique
+		\item Philosophie
+	\end{itemize}
+	~
+	
+	Dans ce cours, nous nous intéresserons aux domaines \textbf{Informatique} et \textbf{Mathématiques}.\\
+	
+	L'intelligence artificielle est une branche des Sciences et Technologies de l'Information dont le but est la \textbf{représentation}, l'extraction et l'\textbf{exploitation} de connaissances interprétables et manipulables dans des formalismes à dominante symbolique en vue d'aider à la résolution d'un problème de raisonnement ou de décision \emph{(chapitre IA Fondamentale dans revue GDR 13, 2011)}.\\
+	
+	\subsection{Caractéristiques}
+	Les particularités de ce qui nous intéresse sont, entre autres:
+	\begin{itemize}
+		\item le caractère interprétable des modèles qui permet la \og{}traçabilité\fg{} du résultat \emph{(par opposition aux approches neuronales ou à l'émergence qui sontvus comme des boîtes noires)}
+		\item le caractère déclaratif des modes de représentation
+		\item le caractère générique des langages et des outils de résolution \emph{(par opposition à la recherche opérationnelle qui privilégie l'efficacité à la généricité)}
+		\item l'intérêt de l'exploitation des connaissances au sens d'informations subjectives \emph{(par opposition aux données comme en BD)}
+	\end{itemize}
+	~
+	
+	\subsection{Plusieurs types de traitement}
+	\begin{itemize}
+		\item \textbf{Raisonnement} : Déduire des informations à partir d'une représentation initiale du monde
+		\item \textbf{Décision} : Trouver des stratégie \emph{(optimales)} en fonction de la représentation initiale du monde
+		\item \textbf{Argmentation} : Trouver des informations qui justifient des informations à mettre en avant 
+		\item \textbf{Mise à jour} : Modifier des informations en fonction d'une nouvelle information disponible
+	\end{itemize}
+	
+	\subsection{Différents modes de raisonnement}
+	\begin{itemize}
+		\item[*] \textbf{Déductif}: Si on a un fait $a$ et que $a$\og{}cause\fg{}$b$ alors on a $b$
+		\item \textbf{Inductif \emph{(apprentissage)}}: On trouve une loi générale à partir de faits particuliers
+		\item \textbf{Abductif \emph{(diagnostic)}}: Si on a un fait $y$ et que $x$ explique $y$ alors on a $x$
+		\item \textbf{Par analogie \emph{(raisonement par cas)}}: $x'$ est similaire à $x$ et $x$ \og{}cause\fg{} $y$ alors on en déduit $y'$ similaire à $y$
+		\item ...
+	\end{itemize}
+	
+	\subsection{Types de connaissances}
+	On a des particularités à prendre en compte dans l'expression des connaissances comme:
+	\begin{itemize}
+		\item l'incertitude
+		\item l'imprécision
+		\item l'incohérences
+		\item les exceptions
+		\item ...
+	\end{itemize}
+	~
+	
+	Exemples, 
+	\begin{itemize}
+		\item Connaissance incertaine
+			\begin{itemize}
+				\item[] \og{}Clovie est né en 765 ap. JC\fg{}
+				\item[] \og{}Au prochain lancer de dé, un 6 va sortir\fg{}
+			\end{itemize}
+		\item Connaissance imprécise ou vague
+			\begin{itemize}
+				\item[] \og{}Hollande es petit\fg{}
+			\end{itemize}
+		\item Connaissance typique ou sujette à exceptions
+			\begin{itemize}
+				\item[] \og{}les oiseaux volent\fg{}
+			\end{itemize}
+	\end{itemize}
+	
+	\section{Représentation des connaissances et formalisation du raisonnement}
+	\subsection{Que veut-on faire ?}
+	\noindent Quelles sonnaissances veut-on représenter ? Il faut un modèle formel. \\
+	Que peut-on en déduire ? Il faut un processus d'inférence. \\
+	\textbf{Problème} : pas de formalisme universel pour toutes les catégorie de connaissances.\\
+	
+	Deux familles de représentation:
+	\begin{itemize}
+		\item[*] \textbf{Représentation logique} : extension de la logique classique pour pouvoir prendre en compte l'imprécision, l'incertitude et les exceptions \emph{(logiques non-classiques)}
+		\item \textbf{Représentation graphique} : extension des graphes avec des processus d'inférence
+	\end{itemize}
+	
+	\subsection{Complexité}
+	Les problèmes étudiés ici sont au moins \texttt{NP-difficiles}
+	
+	\subsection{Limites de la logique classique}
+	\begin{itemize}
+		\item Quantification - monotonie
+	\end{itemize}
+	~
+	
+	\noindent propositionnel:\\
+	\begin{tabular}{lll}
+		$o \rightarrow v$ & $\overline{o} \lor v $  & base inconsistante\\
+		$a \rightarrow o$ & $\overline{a} \lor o $ & \\
+		$a \rightarrow \overline{v}$  & $\overline{a} \lor \overline{v} $ & $o \land \overline{a} \rightarrow v$ trop limitant
+	\end{tabular}
+	~\\~\\
+	
+	\noindent prédicatif:\\
+	\begin{tabular}{lll}
+		$\forall x, O(x) \rightarrow V(x)$ & $O(titi) $  & \\
+		$\forall x, A(x) \rightarrow O(x)$ & $A(lola) $ & \\
+		$\forall x, A(x) \rightarrow V(x)$  &  &
+	\end{tabular}
+	~\\
+	
+	On a besoin de logiques non-monotones.\\
+	
+	Exemples :
+	\begin{itemize}
+		\item[] logique des défauts (Reiter, 80)
+		\item[] answer set programming (Gelford et Lifschitz, 88)
+		\item[] système P
+		\item[] système Z
+	\end{itemize}
+	~\\
+	
+	$$ \frac{o : v(\land \overline{a})}{v} \frac{a:o}{o} \frac{a: \overline{v}}{\overline{v}} $$
+	
+	On calcule des extensions.\\
+	
+	\paragraph{Bivalence de la logique classique (ensembles classiques)} Ensembles flous (Zadeh, 65), Logique floue: processus d'inférence sur les ensembles flous
+	
+	\paragraph{Indétermination} En logique classique, on sait qu'un énoncé est vrai ou faux et on connait sa valeur. Dans certains cas, on ne peut pas la déterminer et on lui associe un degré de certitude.\\
+	
+	Pour coder l'incertitude, on a plusieurs solutions:
+	\begin{enumerate}
+		\item \textbf{Probabilités} \emph{(numérique)}. C'est le modèle le plus ancien et le plus répandu. On utilise des opérateurs de combinaisons simples \emph{somme, produit)}. C'est le plus adaptée à un grand nombre d'informations \emph{(statistiques)}. Cependant, il n'y a pas de logique probabiliste satisfaisante \emph{(d'où les réseayx bayésiens et diagrammes d'influence \emph{(décision)})}. On a un modèle quantitatif, c'est à dire que les valeurs numériques ont une signification en soi.
+		\item \textbf{Possibilités} \emph{(modèle qualitatif: les valeurs n'importent pas mais c'est l'échelle qui est importante)}. Manipule des valeurs numériques combinées avec opérateurs simples \emph{(max, min)}. Logique possibiliste \emph{(Dubois, Long et Prade, 94)}
+	\end{enumerate}
+	
+	\part{Traitement de l'imprécision}
+	\section{Représentation et traitement des informations imprécises}
+	\textbf{Incertitude}: énoncé vrai ou faux dont on ne connait pas avec certitude la valeur de vérité.\\
+	
+	\textbf{Imprécision}: énoncé qui n'est pas nécessairement vrai ou faux.\\
+	
+	\textbf{Rejet}:
+	\begin{itemize}
+		\item du tiers-exclus: pas de théorie des ensembles classiques
+		\item des valeurs booléennes: pas de théorie de la logique classique
+	\end{itemize}
+	~
+	
+	On va travailler sur la théorie des ensembles flous (et la logique floue). En théorie des ensembles classiques, on dit qu'un élément appartient à un ensemble ou non. En théorie des ensembles flous, on dit qu'un élément appartient à un ensemble avec un certain degré.\\
+	
+	\paragraph{Définition} Soit $E$ un ensemble. Un sous-ensemble flou $A$ de $E$ est caractérisé par une application $\mu_A : E \rightarrow [0,1]$, $x \rightarrow \mu_A(x)$. $\mu_A(x)$ est le degré d'appartenance de $x$ à $A$.\\
+	
+	Intuitivement, 
+	\begin{tabular}{|ll|}
+	\hline
+	$\mu_A(x)=1$ & $x$ appartient tout-à-fait à $A$ \\
+	$\mu_A(x)=0$ & $x$ n'appartient pas du tout à $A$ \\
+	$0< \mu_A{x} < 1$ & $x$ appartient plus ou moins à $A$ \\
+	\hline
+	\end{tabular}
+	~\\
+	
+	Exemple:
+	
+	\begin{tabular}{ccc}
+	\multicolumn{2}{c}{A : avoir trente ans} & A : avoir une trentaine d'années \\
+	GRAPHIQUE & GRAPHIQUE & GRAPHIQUE \\
+	Cas continu & Cas discret & 
+	\end{tabular}
+	~\\
+	
+	\paragraph{Opérations sur les ensembles flous}
+	\subparagraph{Inclusion}
+		$$ A \subseteq B \Leftrightarrow {\forall x \in E, \mu_A(x) \le \mu_B(x)} $$
+	\subparagraph{Union}
+		$$ C = A \cup B \Leftrightarrow {\forall x \in E, \mu_C(x)=max(\mu_A(x),\mu_B(x))} $$
+	\subparagraph{Intersection}
+		$$ C = A \cap B \Leftrightarrow {\forall x \in E, \mu_C(x)=min(\mu_A(x),\mu_B(x))} $$
+	\subparagraph{Complémentaire}
+		$$ \overline{C} \Leftrightarrow {\forall x \in E, \mu_A(x)=1-\mu_A(x)}$$
+		
+	\paragraph{Propriétés}
+	$$ \exists A, A \cap \overline{A} \ne \emptyset $$
+	$$ \exists A, A \cup \overline{A} \ne E $$
+	
+	GRAPHIQUE
+	
+	\paragraph{Définition} 
+	Une quantité floue $Q$ est un ensemble flou defini sur les réels.\\
+	$$ \mu_Q : \mathbb{R} \rightarrow [0,1] $$	
+	
+	\paragraph{Définition}
+	Un intervalle flou est une quantité floue convexe
+	$$ \forall u,v, \forall w \in [u,v], \mu_A(w) \ge min(\mu_A(u), \mu_A(v)) $$
+	
+	GRAPHIQUE(convexe)  GRAPHIQUE(non-convexe)\\
+	
+	On va travailler sur des approximations trapézoïdales des intervalles flous.\\
+	
+	\begin{tabular}{llll}
+	\mulcolumn{2}{l}{GRAPHIQUE1} & GRAPHIQUE2 & \\
+	hauteur & $h_i$ & $h_j$ on note \\
+	noyau & $[a_i,b_i]$ & $ a_j,b_j$ & $I(a_i,b_i,\alpha_i,\beta_i,h_i) $\\
+	support & $[a_i-\alpha_i,b_i+\beta_i]$ & $[a_j-\alphaj,b_j+\beta_j]$ & $J(a_j,b_j,\alpha_j,\beta_j,h_j) $ 
+	
+	\end{tabular}
+	
+	
+	
+	\part{Answer Set Programming}
+	\part{Hiérarchie polynômiales, formules booléennes quantifiés, argumentation}
+	\part{Traitement de l'incertitude}
+	
+\end{document}
